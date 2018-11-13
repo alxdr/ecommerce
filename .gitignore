@@ -1,0 +1,11 @@
+/.cache/
+/.SSL/
+/.uploads/
+/dist/
+/lib/
+/node_modules/
+/.env
+/data/
+/local/
+/faker.js
+/clearfaker.js

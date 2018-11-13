@@ -1,0 +1,11 @@
+/.cache/
+/.SSL/
+/.uploads/
+/dist/
+/lib/
+/node_modules/
+/.env
+/package.json
+/package-lock.json
+/data/
+/local/
