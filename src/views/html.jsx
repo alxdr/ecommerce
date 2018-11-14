@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 
 const Html = React.memo(props => {
   const { children, style, script, token } = props;
-  const mode =
-    process.env.NODE_ENV === "production" ? "production.min" : "development";
   return (
     <html lang="en">
       <head>
@@ -45,14 +43,6 @@ const Html = React.memo(props => {
           src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
           integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
           crossOrigin="anonymous"
-        />
-        <script
-          crossOrigin="anonymous"
-          src={`https://unpkg.com/react@16/umd/react.${mode}.js`}
-        />
-        <script
-          crossOrigin="anonymous"
-          src={`https://unpkg.com/react-dom@16/umd/react-dom.${mode}.js`}
         />
         <script src="https://js.stripe.com/v3/" />
         {script ? <script src={script} /> : null}
