@@ -27,16 +27,17 @@ and also an url to a hosted mongodb instance or your own local one for DB in .en
 and lastly, get a Stripe account and activate its platform feature to get STRIPE_PUBLIC, STRIPE_SECRET, CLIENT_ID in .env
 
 ```
-DB=
+# .env file
+DB=<mongodb uri>
 PORT=3000
 FAKER_PORT=8080
 NODE_ENV=development
-SESSION_SECRET=random
-CERT_PATH=
-KEY_PATH=
-STRIPE_SECRET=
-STRIPE_PUBLIC=
-CLIENT_ID=
+SESSION_SECRET=<any random string>
+CERT_PATH=<path to cert>
+KEY_PATH=<path to key>
+STRIPE_SECRET=<stripe secret key>
+STRIPE_PUBLIC=<stripe public key>
+CLIENT_ID=<stripe client ID>
 ```
 
 ### Running
