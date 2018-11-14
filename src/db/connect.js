@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const uri = process.env.DB_LOCAL;
+const uri = process.env.DB;
 
 function connect() {
   return mongoose.connect(
