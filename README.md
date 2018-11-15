@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Install all dependencies first
+Ensure that Node 8 and NPM are installed first, then install all dependencies.
 
 ```
 npm install
@@ -27,7 +27,8 @@ and also an url to a hosted mongodb instance or your own local one for DB in .en
 and lastly, get a Stripe account and activate its platform feature to get STRIPE_PUBLIC, STRIPE_SECRET, CLIENT_ID in .env
 
 ```
-# .env file
+# .env file should look something like this
+
 DB=<mongodb uri>
 PORT=3000
 FAKER_PORT=8080
@@ -51,6 +52,11 @@ npm start
 ```
 npm test
 ```
+
+## Built with
+
+Node, Express, Mongoose, React, Passport, Nodemailer, Esm, Axios, Helmet, Csurf, Stripe,
+Babel, Parcel, ESLint, Prettier, Jest, Supertest and many others
 
 ## License
 
