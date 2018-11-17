@@ -86,7 +86,8 @@ class CheckOut extends React.PureComponent {
     return true;
   }
 
-  async submit() {
+  async submit(event) {
+    event.target.setAttribute("disabled", true);
     const { stripe, amount, cart, showError, clearCart, complete } = this.props;
     const { same } = this.state;
     let address = "billing";
