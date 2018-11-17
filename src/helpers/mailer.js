@@ -4,16 +4,34 @@ let transporter = null;
 
 async function setUpMailer() {
   try {
-    const { user, pass } = await nodemailer.createTestAccount();
-    transporter = nodemailer.createTransport({
-      host: "smtp.ethereal.email",
-      port: 465,
-      secure: true,
-      auth: { user, pass },
-      tls: {
-        rejectUnauthorized: false
-      }
-    });
+    let mailConfig = null;
+    if (process.env.NODE_ENV === "production") {
+      mailConfig = {
+        service: process.env.MAIL_SERVICE,
+        auth: {
+          user: process.env.MAIL_USER,
+          pass: process.env.MAIL_PASS
+        }
+      };
+    } else {
+      const {
+        user,
+        pass,
+        smtp: { host, port, secure }
+      } = await nodemailer.createTestAccount();
+      mailConfig = {
+        host,
+        port,
+        secure,
+        auth: { user, pass },
+        tls: {
+          rejectUnauthorized: false
+        },
+        logger: true,
+        debug: true
+      };
+    }
+    transporter = nodemailer.createTransport(mailConfig);
   } catch (error) {
     console.error(error);
   }
@@ -25,7 +43,9 @@ async function sendMail(mailOptions) {
       await setUpMailer();
     }
     const info = await transporter.sendMail(mailOptions);
-    console.log(nodemailer.getTestMessageUrl(info));
+    if (process.env.NODE_ENV === "development") {
+      console.log(nodemailer.getTestMessageUrl(info));
+    }
   } catch (error) {
     console.error(error);
   }

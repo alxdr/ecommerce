@@ -24,7 +24,9 @@ and also get a TLS encryption certificate and key to enable HTTPS for CERT_PATH 
 
 and also an url to a hosted mongodb instance or your own local one for DB in .env,
 
-and lastly, get a Stripe account and activate its platform feature to get STRIPE_PUBLIC, STRIPE_SECRET, CLIENT_ID in .env
+and get a Stripe account and activate its platform feature to get STRIPE_PUBLIC, STRIPE_SECRET, CLIENT_ID in .env
+
+and lastly, configure nodemailer to use your preferred SMTP email service for MAIL_SERVICE, MAIL_USER, MAIL_PASS in .env
 
 ```
 # .env file should look something like this
@@ -39,6 +41,9 @@ KEY_PATH=<path to key>
 STRIPE_SECRET=<stripe secret key>
 STRIPE_PUBLIC=<stripe public key>
 CLIENT_ID=<stripe client ID>
+MAIL_SERVICE=gmail
+MAIL_USER=<email address>
+MAIL_PASS=<password>
 ```
 
 ### Running
