@@ -12,7 +12,7 @@ const AddToCartButton = React.memo(props => {
         type="button"
         className="btn btn-success"
         onClick={event => {
-          event.currentTarget.classList.add("invisible");
+          event.currentTarget.classList.add("d-none");
           success.current.classList.remove("d-none");
           props.addToCart(props.id);
         }}

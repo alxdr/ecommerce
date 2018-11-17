@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 const RemoveFromCartButton = React.memo(props => (
   <button
     type="button"
-    className="btn btn-light"
+    className="btn btn-danger"
     onClick={() => props.removeFromCart(props.id)}
   >
     <span className="fas fa-trash"> Delete</span>
