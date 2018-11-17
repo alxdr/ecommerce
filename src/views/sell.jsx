@@ -73,8 +73,10 @@ class Sell extends React.PureComponent {
     const { complete, imageLabel } = this.state;
     if (complete) {
       return (
-        <div className="alert alert-success" role="alert">
-          <strong>Success!</strong>
+        <div className="alert alert-success text-center" role="alert">
+          <span className="fas fa-check-circle">
+            <strong> Success</strong>
+          </span>
         </div>
       );
     }

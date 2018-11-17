@@ -115,8 +115,10 @@ class ShoppingCart extends React.PureComponent {
     }
     if (complete) {
       return (
-        <div className="alert alert-success" role="alert">
-          <strong>Purchase Complete</strong>
+        <div className="alert alert-success text-center" role="alert">
+          <span className="fas fa-check-circle">
+            <strong> Purchase Complete</strong>
+          </span>
         </div>
       );
     }
