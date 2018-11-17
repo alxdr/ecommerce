@@ -32,13 +32,11 @@ const Item = React.memo(props => {
 
 Item.propTypes = {
   data: PropTypes.shape({
+    imageSrc: PropTypes.string,
     productName: PropTypes.string,
     department: PropTypes.string,
     text: PropTypes.string,
-    price: PropTypes.string,
-    createdDate: PropTypes.string,
-    updatedDate: PropTypes.string,
-    sellerId: PropTypes.string
+    price: PropTypes.string
   }).isRequired,
   render: PropTypes.func.isRequired
 };

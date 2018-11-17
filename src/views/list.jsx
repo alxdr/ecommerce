@@ -18,13 +18,11 @@ List.defaultProp = {
 List.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
+      imageSrc: PropTypes.string,
       productName: PropTypes.string,
       department: PropTypes.string,
       text: PropTypes.string,
-      price: PropTypes.string,
-      createdDate: PropTypes.string,
-      updatedDate: PropTypes.string,
-      sellerId: PropTypes.string
+      price: PropTypes.string
     })
   ),
   render: PropTypes.func.isRequired
