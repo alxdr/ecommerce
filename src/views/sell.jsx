@@ -19,7 +19,7 @@ class Sell extends React.PureComponent {
     super(props);
     this.state = {
       complete: false,
-      imageLabel: "Choose file for product image"
+      imageLabel: "Choose image"
     };
     this.submit = this.submit.bind(this);
     this.handleImage = this.handleImage.bind(this);
@@ -89,7 +89,13 @@ class Sell extends React.PureComponent {
                 Product Name
                 <sup>*</sup>
               </span>
-              <input type="text" name="productName" id="productName" required />
+              <input
+                className="form-control"
+                type="text"
+                name="productName"
+                id="productName"
+                required
+              />
             </label>
           </div>
           <div className="form-group">
@@ -98,7 +104,13 @@ class Sell extends React.PureComponent {
                 Department
                 <sup>*</sup>
               </span>
-              <input type="text" name="department" id="department" required />
+              <input
+                className="form-control"
+                type="text"
+                name="department"
+                id="department"
+                required
+              />
             </label>
           </div>
           <div className="form-group">
@@ -108,6 +120,7 @@ class Sell extends React.PureComponent {
                 <sup>*</sup>
               </span>
               <input
+                className="form-control"
                 type="number"
                 step="0.01"
                 min="0.50"
