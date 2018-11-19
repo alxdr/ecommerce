@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Html = React.memo(props => {
-  const { children, style, script, token } = props;
+  const { children, stylesheet, script, token } = props;
   return (
     <html lang="en">
       <head>
@@ -24,7 +24,7 @@ const Html = React.memo(props => {
           integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
           crossOrigin="anonymous"
         />
-        {style ? <link rel="stylesheet" href={style} /> : null}
+        {stylesheet ? <link rel="stylesheet" href={stylesheet} /> : null}
         <title>App</title>
       </head>
       <body>

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Html = React.memo(props => {
-  const { children, style, script, token } = props;
+  const { children, stylesheet, script, token } = props;
   const mode =
     process.env.NODE_ENV === "production" ? "production.min" : "development";
   return (
@@ -19,7 +19,7 @@ const Html = React.memo(props => {
           rel="stylesheet"
           href="/local/fontawesome-5.4.1/css/all.min.css"
         />
-        {style ? <link rel="stylesheet" href={style} /> : null}
+        {stylesheet ? <link rel="stylesheet" href={stylesheet} /> : null}
         <title>App</title>
       </head>
       <body>
