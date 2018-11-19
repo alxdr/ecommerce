@@ -8,11 +8,11 @@ const AuthButtons = React.memo(props => {
   if (loggedIn) {
     const connect = connected ? (
       <NavLink href="/sell">
-        <span className="fas fa-hand-holding-usd"> Sell</span>
+        <span className="fas fa-dollar-sign"> Sell</span>
       </NavLink>
     ) : (
       <NavLink href="/connect">
-        <span className="fas fa-hand-holding-usd"> Start Selling</span>
+        <span className="fab fa-stripe-s"> Start Selling</span>
       </NavLink>
     );
     result = (

@@ -87,7 +87,6 @@ class CheckOut extends React.PureComponent {
   }
 
   async submit(event) {
-    event.target.setAttribute("disabled", true);
     const { stripe, amount, cart, showError, clearCart, complete } = this.props;
     const { same } = this.state;
     let address = "billing";
@@ -110,6 +109,9 @@ class CheckOut extends React.PureComponent {
       warning.scrollIntoView();
       return;
     }
+    event.target.setAttribute("disabled", true);
+    const spinner = document.querySelector("#spinner");
+    spinner.classList.remove("d-none");
     const csrfToken = document
       .querySelector('meta[name="csrf-token"]')
       .getAttribute("content");
@@ -545,7 +547,8 @@ class CheckOut extends React.PureComponent {
                 className="btn btn-primary ml-3"
                 onClick={this.submit}
               >
-                Send
+                <span className="fas fa-spinner fa-pulse d-none" id="spinner" />
+                <span> Send</span>
               </button>
             </div>
           </div>

@@ -35,6 +35,9 @@ class Sell extends React.PureComponent {
       document.querySelector("#warning").classList.remove("d-none");
       return;
     }
+    event.target.setAttribute("disabled", true);
+    const spinner = document.querySelector("#spinner");
+    spinner.classList.remove("d-none");
     const token = document
       .querySelector('meta[name="csrf-token"]')
       .getAttribute("content");
@@ -160,7 +163,8 @@ class Sell extends React.PureComponent {
             className="btn btn-primary btn-block"
             onClick={this.submit}
           >
-            Submit
+            <span className="fas fa-spinner fa-pulse d-none" id="spinner" />
+            <span> Submit</span>
           </button>
           <div
             className="alert alert-danger text-center d-none mt-2 "
