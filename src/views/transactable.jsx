@@ -6,33 +6,60 @@ const TransacTable = React.memo(props => {
   const { data, title } = props;
   return (
     <div className="table-responsive">
-      <table className="table table-hover">
-        <thead className="thead-light">
+      <table className="table table-borderless table-striped">
+        <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">{title}</th>
             <th scope="col">Amount</th>
-            <th scope="col">Date</th>
+            <th scope="col">{`${title} Date`}</th>
+            <th scope="col">Review</th>
           </tr>
         </thead>
         <tbody>
           {data.map((d, index) => {
             const {
               _id: id,
-              product: { productName },
+              product: { productName, _id: pid },
               amount,
-              createdDate: date
+              createdDate: date,
+              review
             } = d;
+            const reviewButton =
+              title === "Purchase" ? (
+                <Link
+                  className="btn btn-primary"
+                  href="/profile/transaction/reviewing"
+                  data={{ reviewing: { tid: id, pid } }}
+                >
+                  <span className="fas fa-pen"> Review</span>
+                </Link>
+              ) : (
+                "None"
+              );
             return (
               <tr key={id}>
                 <th scope="row">{index + 1}</th>
                 <td className="w-25">
-                  <Link href="/profile/details" data={{ details: d }}>
+                  <Link href="/profile/transaction" data={{ transaction: d }}>
                     <span>{productName}</span>
                   </Link>
                 </td>
                 <td className="w-25">{`$${amount}`}</td>
                 <td className="w-25">{new Date(date).toLocaleString()}</td>
+                <td>
+                  {review === null ? (
+                    reviewButton
+                  ) : (
+                    <Link
+                      className="btn btn-secondary"
+                      href="/profile/transaction/review"
+                      data={{ review: { review, productName } }}
+                    >
+                      <span className="fas fa-eye"> Review</span>
+                    </Link>
+                  )}
+                </td>
               </tr>
             );
           })}

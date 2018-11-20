@@ -2,12 +2,12 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-function validateForm(formData) {
+function validateForm(formData, edit) {
   const file = formData.get("image");
   const productName = formData.get("productName");
   const department = formData.get("department");
   const price = formData.get("price");
-  if (file.size === 0) return false;
+  if (!edit && file.size === 0) return false;
   if (productName.length === 0) return false;
   if (department.length === 0) return false;
   if (price.length === 0) return false;
@@ -17,21 +17,33 @@ function validateForm(formData) {
 class Sell extends React.PureComponent {
   constructor(props) {
     super(props);
+    const {
+      preset: { productName, department, text, price }
+    } = props;
     this.state = {
       complete: false,
-      imageLabel: "Choose image"
+      imageLabel: "Choose image",
+      productName,
+      department,
+      text,
+      price
     };
     this.submit = this.submit.bind(this);
     this.handleImage = this.handleImage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   submit(event) {
-    const { showError } = this.props;
+    const {
+      showError,
+      edit,
+      preset: { _id: id }
+    } = this.props;
     event.preventDefault();
     event.stopPropagation();
     const form = document.querySelector("#form");
     const formData = new FormData(form);
-    if (!validateForm(formData)) {
+    if (!validateForm(formData, edit)) {
       document.querySelector("#warning").classList.remove("d-none");
       return;
     }
@@ -41,14 +53,25 @@ class Sell extends React.PureComponent {
     const token = document
       .querySelector('meta[name="csrf-token"]')
       .getAttribute("content");
-    axios
-      .post("/sell", formData, {
+    let promise = null;
+    if (edit) {
+      promise = axios.patch(`/edit/product/${id}`, formData, {
         xsrfHeaderName: "csrf-token",
         headers: {
           "Content-Type": "multipart/form-data",
           "csrf-token": token
         }
-      })
+      });
+    } else {
+      promise = axios.post("/sell", formData, {
+        xsrfHeaderName: "csrf-token",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          "csrf-token": token
+        }
+      });
+    }
+    promise
       .then(() => {
         this.setState({ complete: true });
       })
@@ -72,8 +95,21 @@ class Sell extends React.PureComponent {
     this.setState({ imageLabel: target.files[0].name });
   }
 
+  handleChange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
   render() {
-    const { complete, imageLabel } = this.state;
+    const {
+      complete,
+      imageLabel,
+      productName,
+      department,
+      text,
+      price
+    } = this.state;
     if (complete) {
       return (
         <div className="alert alert-success text-center" role="alert">
@@ -97,6 +133,8 @@ class Sell extends React.PureComponent {
                 type="text"
                 name="productName"
                 id="productName"
+                value={productName}
+                onChange={this.handleChange}
                 required
               />
             </label>
@@ -112,6 +150,8 @@ class Sell extends React.PureComponent {
                 type="text"
                 name="department"
                 id="department"
+                value={department}
+                onChange={this.handleChange}
                 required
               />
             </label>
@@ -129,6 +169,8 @@ class Sell extends React.PureComponent {
                 min="0.50"
                 id="price"
                 name="price"
+                value={price}
+                onChange={this.handleChange}
                 required
               />
             </label>
@@ -136,7 +178,13 @@ class Sell extends React.PureComponent {
           <div className="form-group">
             <label htmlFor="text" className="w-100 d-flex flex-column">
               <span>Additional Text: </span>
-              <textarea className="form-control" id="text" name="text" />
+              <textarea
+                className="form-control"
+                id="text"
+                name="text"
+                value={text}
+                onChange={this.handleChange}
+              />
             </label>
           </div>
           <div className="form-group">
@@ -184,8 +232,20 @@ class Sell extends React.PureComponent {
   }
 }
 
+Sell.defaultProps = {
+  preset: {
+    productName: "",
+    department: "",
+    text: "",
+    price: ""
+  },
+  edit: false
+};
+
 Sell.propTypes = {
-  showError: PropTypes.func.isRequired
+  showError: PropTypes.func.isRequired,
+  preset: PropTypes.objectOf(PropTypes.string),
+  edit: PropTypes.bool
 };
 
 export default Sell;

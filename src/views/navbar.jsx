@@ -5,7 +5,7 @@ import SearchBar from "./search_bar";
 import NavLink from "./navlink";
 
 const NavBar = React.memo(props => {
-  const { loggedIn, logout, showSearch, showError, connected } = props;
+  const { loggedIn, logout, showSearch, showError, connected, counter } = props;
 
   return (
     <nav className="nav navbar navbar-expand-lg navbar-light bg-light fixed-top mb-3 nav-fill">
@@ -33,7 +33,10 @@ const NavBar = React.memo(props => {
             SimpleCommerce
           </NavLink>
           <NavLink href="/cart">
-            <span className="fas fa-shopping-cart"> Cart</span>
+            <span className="fas fa-shopping-cart">
+              {" Cart"}
+              {counter > 0 ? <span id="badge">{counter}</span> : null}
+            </span>
           </NavLink>
           <AuthButtons
             loggedIn={loggedIn}

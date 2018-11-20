@@ -1,7 +1,7 @@
 const express = require("express");
 const helmet = require("helmet");
 const session = require("express-session");
-const MongoStore = require('connect-mongo')(session);
+const MongoStore = require("connect-mongo")(session);
 const csrf = require("csurf");
 const connect = require("./db/connect");
 const root = require("./routes/root");
@@ -13,6 +13,8 @@ const redirect = require("./routes/redirect");
 const check = require("./routes/check");
 const sell = require("./routes/sell");
 const profile = require("./routes/profile");
+const product = require("./routes/product");
+const edit = require("./routes/edit");
 
 const app = express();
 
@@ -45,7 +47,8 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/public", express.static(`${process.cwd()}/dist`));
+app.use("/dist", express.static(`${process.cwd()}/dist`));
+app.use("/public/style", express.static(`${process.cwd()}/src/public/style`));
 app.use("/local", express.static(`${process.cwd()}/local`));
 app.use("/uploads", express.static(`${process.cwd()}/.uploads`));
 
@@ -64,12 +67,14 @@ connect()
       app.use(csrf());
       root(app);
       search(app);
-      auth(app);
       cart(app);
+      auth(app);
+      product(app);
       checkout(app);
       redirect(app);
       check(app);
       sell(app);
+      edit(app);
       profile(app);
     },
     err => {

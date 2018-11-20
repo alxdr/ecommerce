@@ -13,6 +13,12 @@ import history from "../helpers/history";
 import Sell from "./sell";
 import Profile from "./profile";
 import ErrorBoundary from "./errbound";
+import Product from "./product";
+import Transaction from "./transaction";
+import Edit from "./edit";
+import Review from "./review";
+import Reviewing from "./reviewing";
+import Answer from "./answer";
 
 const SEARCH = "/search";
 const ERROR = "/error";
@@ -24,7 +30,12 @@ const CONNECT = "/connect";
 const SELL = "/sell";
 const PROFILE = "/profile";
 const CHECKOUT = "/cart/checkout";
-const DETAILS = "/profile/details";
+const TRANSACTION = "/profile/transaction";
+const PRODUCT = "/product";
+const EDIT = "/profile/edit/selling";
+const REVIEWING = "/profile/transaction/reviewing";
+const REVIEW = "/profile/transaction/review";
+const ANSWER = "/answer";
 
 class Home extends React.PureComponent {
   constructor(props) {
@@ -36,7 +47,12 @@ class Home extends React.PureComponent {
       error: null,
       connected: false,
       loggedIn: false,
-      details: null
+      transaction: null,
+      product: null,
+      edit: null,
+      review: null,
+      reviewing: null,
+      answer: null
     };
     this.renderURL = this.renderURL.bind(this);
     this.clearCart = this.clearCart.bind(this);
@@ -50,7 +66,17 @@ class Home extends React.PureComponent {
   }
 
   componentWillMount() {
-    const { cart, searchData, error, details } = this.state;
+    const {
+      cart,
+      searchData,
+      error,
+      transaction,
+      product,
+      edit,
+      review,
+      reviewing,
+      answer
+    } = this.state;
     this.pages = {
       [ROOT]: Carousel,
       [SEARCH]: Search,
@@ -62,7 +88,12 @@ class Home extends React.PureComponent {
       [SELL]: Sell,
       [PROFILE]: Profile,
       [CHECKOUT]: ShoppingCart,
-      [DETAILS]: Profile
+      [TRANSACTION]: Transaction,
+      [PRODUCT]: Product,
+      [EDIT]: Edit,
+      [REVIEWING]: Reviewing,
+      [REVIEW]: Review,
+      [ANSWER]: Answer
     };
     this.pageProps = {
       [ROOT]: {},
@@ -89,7 +120,12 @@ class Home extends React.PureComponent {
         clearCart: this.clearCart,
         checkOut: true
       },
-      [DETAILS]: { showError: this.showError, details }
+      [TRANSACTION]: { showError: this.showError, transaction },
+      [PRODUCT]: { product, showError: this.showError },
+      [EDIT]: { showError: this.showError, edit },
+      [REVIEWING]: { showError: this.showError, reviewing },
+      [REVIEW]: { review },
+      [ANSWER]: { answer }
     };
   }
 
@@ -173,14 +209,24 @@ class Home extends React.PureComponent {
       searchData,
       error,
       connected,
-      details
+      transaction,
+      product,
+      edit,
+      review,
+      reviewing,
+      answer
     } = this.state;
 
     this.pageProps[SEARCH].data = searchData;
     this.pageProps[ERROR].error = error;
     this.pageProps[CART].cart = cart;
     this.pageProps[CHECKOUT].cart = cart;
-    this.pageProps[DETAILS].details = details;
+    this.pageProps[TRANSACTION].transaction = transaction;
+    this.pageProps[PRODUCT].product = product;
+    this.pageProps[EDIT].edit = edit;
+    this.pageProps[REVIEW].review = review;
+    this.pageProps[REVIEWING].reviewing = reviewing;
+    this.pageProps[ANSWER].answer = answer;
 
     const Component = this.pages[show];
     return (
@@ -191,6 +237,7 @@ class Home extends React.PureComponent {
           logout={this.logout}
           loggedIn={loggedIn}
           connected={connected}
+          counter={cart.length}
         />
         <main className="container-fluid mt-5 pt-3" id="container">
           <Component {...this.pageProps[show]} />

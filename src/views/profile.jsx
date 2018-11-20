@@ -2,25 +2,30 @@ import React from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import TransacTable from "./transactable";
-import Transaction from "./transaction";
+import Selling from "./selling";
 
 class Profile extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      transactions: { buys: [], sells: [] }
+      buys: [],
+      sells: [],
+      selling: []
     };
   }
 
-  componentDidMount() {
+  componentWillMount() {
     const { showError } = this.props;
     axios
       .get("/profile")
-      .then(res =>
+      .then(res => {
+        const { buys, sells, selling } = res.data;
         this.setState({
-          transactions: res.data
-        })
-      )
+          buys,
+          sells,
+          selling
+        });
+      })
       .catch(error => {
         if (error.response) {
           if (error.response.status === 401) {
@@ -37,29 +42,83 @@ class Profile extends React.PureComponent {
   }
 
   render() {
-    const {
-      transactions: { buys, sells }
-    } = this.state;
-    const { details } = this.props;
-    if (details !== null) return <Transaction details={details} />;
+    const { buys, sells, selling } = this.state;
     return (
       <>
-        {buys.length > 0 ? (
-          <TransacTable data={buys} title="Purchases" />
-        ) : null}
-        {sells.length > 0 ? <TransacTable data={sells} title="Sales" /> : null}
+        <ul className="nav nav-tabs" id="tablist" role="tablist">
+          <li className="nav-item">
+            <a
+              className="nav-link active"
+              id="purchase-tab"
+              data-toggle="tab"
+              href="#purchases"
+              role="tab"
+              aria-controls="purchases"
+              aria-selected="true"
+            >
+              Purchases
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
+              className="nav-link"
+              id="sales-tab"
+              data-toggle="tab"
+              href="#sales"
+              role="tab"
+              aria-controls="sales"
+              aria-selected="false"
+            >
+              Sales
+            </a>
+          </li>
+          <li className="nav-item">
+            <a
+              className="nav-link"
+              id="selling-tab"
+              data-toggle="tab"
+              href="#selling"
+              role="tab"
+              aria-controls="selling"
+              aria-selected="false"
+            >
+              Selling
+            </a>
+          </li>
+        </ul>
+        <div className="tab-content" id="tabContent">
+          <div
+            className="tab-pane fade show active"
+            id="purchases"
+            role="tabpanel"
+            aria-labelledby="purchases-tab"
+          >
+            <TransacTable data={buys} title="Purchase" />
+          </div>
+          <div
+            className="tab-pane fade"
+            id="sales"
+            role="tabpanel"
+            aria-labelledby="sales-tab"
+          >
+            <TransacTable data={sells} title="Sales" />
+          </div>
+          <div
+            className="tab-pane fade"
+            id="selling"
+            role="tabpanel"
+            aria-labelledby="selling-tab"
+          >
+            <Selling data={selling} />
+          </div>
+        </div>
       </>
     );
   }
 }
 
-Profile.defaultProps = {
-  details: null
-};
-
 Profile.propTypes = {
-  showError: PropTypes.func.isRequired,
-  details: PropTypes.objectOf(PropTypes.any)
+  showError: PropTypes.func.isRequired
 };
 
 export default Profile;

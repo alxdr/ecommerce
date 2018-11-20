@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 const Transaction = React.memo(props => {
   const {
-    details: {
+    transaction: {
       seller: { email: sellerEmail },
       buyer: { email: buyerEmail },
       product: { productName },
@@ -32,7 +32,7 @@ const Transaction = React.memo(props => {
   return (
     <div className="row justify-content-center">
       <div className="card d-inline-flex flex-column mt-2">
-        <div className="card-header">Transaction</div>
+        <div className="card-header">Transaction Details</div>
         <div className="card-body">
           <h5 className="card-title">{`Product: ${productName}`}</h5>
           <h6 className="card-subtitle mb-2">{`Transaction Amount: $${amount}`}</h6>
@@ -50,7 +50,7 @@ const Transaction = React.memo(props => {
 });
 
 Transaction.propTypes = {
-  details: PropTypes.objectOf(PropTypes.any).isRequired
+  transaction: PropTypes.objectOf(PropTypes.any).isRequired
 };
 
 export default Transaction;

@@ -8,7 +8,11 @@ const root = app => {
     res.type("html");
     res.write("<!DOCTYPE html>");
     renderToNodeStream(
-      <Html script="/public/bundle.js" token={req.csrfToken()}>
+      <Html
+        script="/dist/bundle.js"
+        stylesheet="/public/style/main.css"
+        token={req.csrfToken()}
+      >
         <Home />
       </Html>
     ).pipe(res);
