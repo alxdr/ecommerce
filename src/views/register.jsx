@@ -273,7 +273,7 @@ class Register extends React.PureComponent {
             </div>
             <small className="form-text text-muted" id="invalidUsername">
               Your username must be 8-16 characters long, and only contain
-              letters and numbers.
+              letters, numbers or underscore.
             </small>
           </label>
           <label htmlFor="registerPassword" className="w-100">
