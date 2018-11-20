@@ -138,7 +138,7 @@ class Product extends React.PureComponent {
 
     const formComponent = (
       <form className="d-inline-flex justify-content-start">
-        <label htmlFor="ask" className="mr-2">
+        <label htmlFor="ask" className="mr-2 mb-1">
           <span className="fas fa-question-circle"> Ask us anything</span>
           <input
             type="text"
@@ -149,7 +149,7 @@ class Product extends React.PureComponent {
             onChange={this.handleChange}
           />
         </label>
-        <div className="form-group d-inline-flex flex-column justify-content-end">
+        <div className="form-group d-inline-flex flex-column justify-content-end mb-2">
           <button
             type="button"
             className="btn btn-secondary btn-sm"
