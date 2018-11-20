@@ -109,7 +109,7 @@ class CheckOut extends React.PureComponent {
       warning.scrollIntoView();
       return;
     }
-    event.target.setAttribute("disabled", true);
+    event.currentTarget.setAttribute("disabled", true);
     const spinner = document.querySelector("#spinner");
     spinner.classList.remove("d-none");
     const csrfToken = document

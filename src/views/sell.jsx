@@ -47,7 +47,7 @@ class Sell extends React.PureComponent {
       document.querySelector("#warning").classList.remove("d-none");
       return;
     }
-    event.target.setAttribute("disabled", true);
+    event.currentTarget.setAttribute("disabled", true);
     const spinner = document.querySelector("#spinner");
     spinner.classList.remove("d-none");
     const token = document
