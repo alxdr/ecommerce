@@ -410,7 +410,9 @@ class CheckOut extends React.PureComponent {
                   onChange={this.handleShipCountry}
                 >
                   {countries.map(name => (
-                    <option value={name}>{name}</option>
+                    <option value={name} key={name}>
+                      {name}
+                    </option>
                   ))}
                 </select>
               </label>
@@ -521,7 +523,9 @@ class CheckOut extends React.PureComponent {
                     onChange={this.handleShipCountry}
                   >
                     {countries.map(name => (
-                      <option value={name}>{name}</option>
+                      <option value={name} key={name}>
+                        {name}
+                      </option>
                     ))}
                   </select>
                 </label>
