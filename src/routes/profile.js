@@ -27,7 +27,9 @@ const profile = app => {
         selling
       });
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500);
+      res.type("txt");
+      res.send(error.toString());
     }
   });
 };

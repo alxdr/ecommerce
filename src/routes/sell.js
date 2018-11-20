@@ -31,7 +31,8 @@ const sell = app => {
         res.sendStatus(200);
       } catch (error) {
         res.status(500);
-        res.send(error);
+        res.type("txt");
+        res.send(error.toString());
       }
     }
   );

@@ -23,7 +23,7 @@ const cart = app => {
       } catch (err) {
         res.status(500);
         res.type("txt");
-        res.send(err);
+        res.send(err.toString());
       }
     }
   });

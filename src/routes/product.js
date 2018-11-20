@@ -15,7 +15,9 @@ const product = app => {
           .exec();
         res.status(200).json({ thread });
       } catch (error) {
-        res.status(500).send(error);
+        res.status(500);
+        res.type("txt");
+        res.send(error.toString());
       }
     })
     .post(ensureAuthenticated, async (req, res) => {
@@ -30,7 +32,9 @@ const product = app => {
         }).save();
         res.sendStatus(200);
       } catch (error) {
-        res.status(500).send(error);
+        res.status(500);
+        res.type("txt");
+        res.send(error.toString());
       }
     });
   // Post reply to thread message
@@ -52,7 +56,9 @@ const product = app => {
         });
         res.sendStatus(200);
       } catch (error) {
-        res.status(500).send(error);
+        res.status(500);
+        res.type("txt");
+        res.send(error.toString());
       }
     }
   );
@@ -62,7 +68,9 @@ const product = app => {
       const reviews = await Review.find({ target: new ObjectId(id) }).exec();
       res.status(200).json({ reviews });
     } catch (error) {
-      res.status(500).send(error);
+      res.status(500);
+      res.type("txt");
+      res.send(error.toString());
     }
   });
   app.post(
@@ -81,7 +89,9 @@ const product = app => {
         await Transaction.findByIdAndUpdate(tid, { review: rid }).exec();
         res.sendStatus(200);
       } catch (error) {
-        res.status(500).send(error);
+        res.status(500);
+        res.type("txt");
+        res.send(error.toString());
       }
     }
   );
