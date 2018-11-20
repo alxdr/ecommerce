@@ -3,6 +3,7 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import TransacTable from "./transactable";
 import Selling from "./selling";
+import Settings from "./settings";
 
 class Profile extends React.PureComponent {
   constructor(props) {
@@ -43,6 +44,7 @@ class Profile extends React.PureComponent {
 
   render() {
     const { buys, sells, selling } = this.state;
+    const { showError } = this.props;
     return (
       <>
         <ul className="nav nav-tabs" id="tablist" role="tablist">
@@ -85,6 +87,19 @@ class Profile extends React.PureComponent {
               Selling
             </a>
           </li>
+          <li className="nav-item">
+            <a
+              className="nav-link"
+              id="settings-tab"
+              data-toggle="tab"
+              href="#settings"
+              role="tab"
+              aria-controls="settings"
+              aria-selected="false"
+            >
+              Settings
+            </a>
+          </li>
         </ul>
         <div className="tab-content" id="tabContent">
           <div
@@ -110,6 +125,14 @@ class Profile extends React.PureComponent {
             aria-labelledby="selling-tab"
           >
             <Selling data={selling} />
+          </div>
+          <div
+            className="tab-pane fade"
+            id="settings"
+            role="tabpanel"
+            aria-labelledby="settings-tab"
+          >
+            <Settings showError={showError} />
           </div>
         </div>
       </>
