@@ -94,6 +94,7 @@ const auth = app => {
   passport.use(
     new LocalStrategy((username, password, done) => {
       User.findOne({ username })
+        .select("+password")
         .exec()
         .then(
           async user => {

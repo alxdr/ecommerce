@@ -6,14 +6,13 @@ const userSchema = new Schema(
   {
     username: { type: String, required: true },
     email: { type: String, required: true },
-    password: { type: String, required: true },
+    password: { type: String, required: true, select: false },
     stripe: {
       connected: { type: Boolean, default: false },
-      stripeKey: { type: String, default: null },
-      stripeSecret: { type: String, default: null },
+      stripeKey: { type: String, default: null, select: false },
       stripeUID: { type: String, default: null },
-      refreshTok: { type: String, default: null },
-      accessTok: { type: String, default: null }
+      refreshTok: { type: String, default: null, select: false },
+      accessTok: { type: String, default: null, select: false }
     },
     selling: [{ type: Schema.Types.ObjectId, ref: "Product" }]
   },
