@@ -125,7 +125,7 @@ class Home extends React.PureComponent {
       [EDIT]: { showError: this.showError, edit },
       [REVIEWING]: { showError: this.showError, reviewing },
       [REVIEW]: { review },
-      [ANSWER]: { answer }
+      [ANSWER]: { answer, showError: this.showError }
     };
   }
 
