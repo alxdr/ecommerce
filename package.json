@@ -7,7 +7,7 @@
     "test": "jest",
     "watch": "jest --watch",
     "babel": "babel src --out-dir lib",
-    "bundle": "parcel build ./lib/public/scripts/bundle.js",
+    "bundle": "parcel build ./lib/public/scripts/bundle.js --experimental-scope-hoisting",
     "build": "npm run babel && npm run bundle",
     "start": "npm run build && node server.js",
     "db": "mongod --port 27017 --dbpath=./data"
