@@ -3,6 +3,7 @@ const helmet = require("helmet");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
 const csrf = require("csurf");
+const compression = require("compression");
 const connect = require("./db/connect");
 const root = require("./routes/root");
 const search = require("./routes/search");
@@ -19,6 +20,7 @@ const del = require("./routes/delete");
 
 const app = express();
 
+app.use(compression());
 app.use(
   helmet({
     contentSecurityPolicy: {

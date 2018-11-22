@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 
 const Html = React.memo(props => {
   const { children, stylesheet, script, token } = props;
-  const mode =
-    process.env.NODE_ENV === "production" ? "production.min" : "development";
   return (
     <html lang="en">
       <head>
@@ -27,8 +25,6 @@ const Html = React.memo(props => {
         <script src="/local/jquery.slim.min.js" />
         <script src="/local/popper.min.js" />
         <script src="/local/bootstrap.min.js" />
-        <script src={`/local/react.${mode}.js`} />
-        <script src={`/local/react-dom.${mode}.js`} />
         <script src="https://js.stripe.com/v3/" />
         {script ? <script src={script} /> : null}
       </body>
