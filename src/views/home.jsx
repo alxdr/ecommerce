@@ -186,7 +186,9 @@ class Home extends React.PureComponent {
   removeFromCart(id) {
     this.setState(state => {
       const cart = state.cart.slice();
-      cart.splice(cart.indexOf(id), 1);
+      const index = cart.indexOf(id);
+      if (index === -1) return {};
+      cart.splice(index, 1);
       return { cart };
     });
   }
