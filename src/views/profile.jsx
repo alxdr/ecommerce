@@ -13,6 +13,7 @@ class Profile extends React.PureComponent {
       sells: [],
       selling: []
     };
+    this.deleteProduct = this.deleteProduct.bind(this);
   }
 
   componentWillMount() {
@@ -25,6 +26,45 @@ class Profile extends React.PureComponent {
           buys,
           sells,
           selling
+        });
+      })
+      .catch(error => {
+        if (error.response) {
+          if (error.response.status === 401) {
+            showError(Error("Sorry, you have to log in first."));
+          } else {
+            showError(error.response);
+          }
+        } else if (error.request) {
+          showError(error.request);
+        } else {
+          showError(error);
+        }
+      });
+  }
+
+  deleteProduct(id) {
+    const { showError } = this.props;
+    const token = document
+      .querySelector('meta[name="csrf-token"]')
+      .getAttribute("content");
+    axios
+      .delete(`/delete/product/${id}`, {
+        xsrfHeaderName: "csrf-token",
+        headers: {
+          "csrf-token": token
+        }
+      })
+      .then(() => {
+        this.setState(state => {
+          const selling = state.selling.slice();
+          const index = selling.findIndex(product => {
+            const { _id: pid } = product;
+            return pid === id;
+          });
+          if (index === -1) return {};
+          selling.splice(index, 1);
+          return { selling };
         });
       })
       .catch(error => {
@@ -124,7 +164,7 @@ class Profile extends React.PureComponent {
             role="tabpanel"
             aria-labelledby="selling-tab"
           >
-            <Selling data={selling} />
+            <Selling data={selling} deleteProduct={this.deleteProduct} />
           </div>
           <div
             className="tab-pane fade"

@@ -15,6 +15,7 @@ const sell = require("./routes/sell");
 const profile = require("./routes/profile");
 const product = require("./routes/product");
 const edit = require("./routes/edit");
+const del = require("./routes/delete");
 
 const app = express();
 
@@ -74,8 +75,9 @@ connect()
       redirect(app);
       check(app);
       sell(app);
-      edit(app);
       profile(app);
+      edit(app);
+      del(app);
     },
     err => {
       console.log(err);

@@ -10,7 +10,8 @@
     "bundle": "parcel build ./lib/public/scripts/bundle.js --experimental-scope-hoisting",
     "build": "npm run babel && npm run bundle",
     "start": "npm run build && node server.js",
-    "db": "mongod --port 27017 --dbpath=./data"
+    "db": "mongod --port 27017 --dbpath=./data",
+    "sass": "sass ./src/public/style/main.scss ./src/public/style/main.css"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
     "bcrypt": "^3.0.2",
+    "compression": "^1.7.3",
     "connect-mongo": "^2.0.1",
     "country-list": "^2.0.0",
     "csurf": "^1.9.0",
@@ -30,6 +32,7 @@
     "helmet": "^3.15.0",
     "history": "^4.7.2",
     "mongoose": "^5.3.10",
+    "mongoose-delete": "^0.4.0",
     "multer": "^1.4.1",
     "nodemailer": "^4.6.8",
     "passport": "^0.4.0",
@@ -64,6 +67,7 @@
     "parcel-bundler": "^1.10.3",
     "prettier": "^1.15.1",
     "regenerator-runtime": "^0.12.1",
+    "sass": "^1.15.1",
     "supertest": "^3.3.0"
   }
 }

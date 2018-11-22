@@ -13,53 +13,61 @@ const TransacTable = React.memo(props => {
             <th scope="col">{title}</th>
             <th scope="col">Amount</th>
             <th scope="col">{`${title} Date`}</th>
+            <th scope="col">Contact</th>
             <th scope="col">Review</th>
           </tr>
         </thead>
         <tbody>
           {data.map((d, index) => {
-            const {
-              _id: id,
-              product: { productName, _id: pid },
-              amount,
-              createdDate: date,
-              review
-            } = d;
-            const reviewButton =
-              title === "Purchase" ? (
-                <Link
-                  className="btn btn-primary"
-                  href="/profile/transaction/reviewing"
-                  data={{ reviewing: { tid: id, pid } }}
-                >
-                  <span className="fas fa-pen"> Review</span>
+            const { _id: id, product, amount, createdDate: date, review } = d;
+            const contact =
+              title === "Purchase" ? d.seller.email : d.buyer.email;
+            let reviewSection = null;
+            let productSection = null;
+            if (product === null) {
+              productSection = "This product is no longer available.";
+              reviewSection = "Not Applicable";
+            } else {
+              const { productName, pid } = product;
+              productSection = (
+                <Link href="/profile/transaction" data={{ transaction: d }}>
+                  <span>{productName}</span>
                 </Link>
-              ) : (
-                "None"
               );
+              if (review === null) {
+                if (title === "Purchase") {
+                  reviewSection = (
+                    <Link
+                      className="btn btn-primary"
+                      href="/profile/transaction/reviewing"
+                      data={{ reviewing: { tid: id, pid } }}
+                    >
+                      <span className="fas fa-pen"> Review</span>
+                    </Link>
+                  );
+                } else {
+                  reviewSection = "None";
+                }
+              } else {
+                reviewSection = (
+                  <Link
+                    className="btn btn-secondary"
+                    href="/profile/transaction/review"
+                    data={{ review: { review, productName } }}
+                  >
+                    <span className="fas fa-eye"> Review</span>
+                  </Link>
+                );
+              }
+            }
             return (
               <tr key={id}>
                 <th scope="row">{index + 1}</th>
-                <td className="w-25">
-                  <Link href="/profile/transaction" data={{ transaction: d }}>
-                    <span>{productName}</span>
-                  </Link>
-                </td>
+                <td className="w-25">{productSection}</td>
                 <td className="w-25">{`$${amount}`}</td>
                 <td className="w-25">{new Date(date).toLocaleString()}</td>
-                <td>
-                  {review === null ? (
-                    reviewButton
-                  ) : (
-                    <Link
-                      className="btn btn-secondary"
-                      href="/profile/transaction/review"
-                      data={{ review: { review, productName } }}
-                    >
-                      <span className="fas fa-eye"> Review</span>
-                    </Link>
-                  )}
-                </td>
+                <td>{contact}</td>
+                <td>{reviewSection}</td>
               </tr>
             );
           })}
