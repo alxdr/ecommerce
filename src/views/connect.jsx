@@ -17,7 +17,7 @@ const Connect = React.memo(() => {
             }&scope=read_write&state=${token}`}
           >
             <img
-              src="/local/images/blue-on-light.png"
+              src="/public/images/blue-on-light.png"
               alt="Connect with Stripe"
             />
           </a>
