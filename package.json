@@ -8,10 +8,10 @@
     "watch": "jest --watch",
     "babel": "babel src --out-dir lib",
     "bundle": "parcel build ./src/public/scripts/bundle.jsx --experimental-scope-hoisting",
-    "build": "npm run babel && npm run bundle",
+    "build": "npm run sass && npm run babel && npm run bundle",
     "start": "npm run build && node server.js",
     "db": "mongod --port 27017 --dbpath=./data",
-    "sass": "sass ./src/public/style/main.scss ./src/public/style/main.css"
+    "sass": "sass ./src/public/style/main.scss ./public/style/main.css"
   },
   "keywords": [],
   "author": "",

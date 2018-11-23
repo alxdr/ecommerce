@@ -61,7 +61,7 @@ npm test
 ## Built with
 
 Node, Express, Mongoose, React, Passport, Nodemailer, Esm, Axios, Helmet, Csurf, Stripe,
-Babel, Parcel, ESLint, Prettier, Jest, Supertest and many others
+Babel, Parcel, ESLint, Prettier, Jest, Supertest, Sass and many others
 
 ## License
 
