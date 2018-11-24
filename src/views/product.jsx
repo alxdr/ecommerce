@@ -233,10 +233,9 @@ class Product extends React.PureComponent {
                     >
                       <p>{msgText}</p>
                     </Link>
-                    <span>
-                      {`By ${username} on ${new Date(
-                        createdDate
-                      ).toLocaleDateString()}`}
+                    <span className="font-weight-bold mr-2">{username}</span>
+                    <span className="text-muted">
+                      {new Date(createdDate).toLocaleDateString()}
                     </span>
                   </div>
                 </div>
@@ -257,10 +256,11 @@ class Product extends React.PureComponent {
                       return (
                         <div key={replyId}>
                           <p>{reply.text}</p>
-                          <span>
-                            {`By ${replyUsername} on ${new Date(
-                              replyDate
-                            ).toLocaleDateString()}`}
+                          <span className="font-weight-bold mr-2">
+                            {replyUsername}
+                          </span>
+                          <span className="text-muted">
+                            {new Date(replyDate).toLocaleDateString()}
                           </span>
                         </div>
                       );
