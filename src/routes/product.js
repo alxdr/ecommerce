@@ -11,7 +11,12 @@ const product = app => {
       const { id } = req.params;
       try {
         const thread = await Message.find({ target: new ObjectId(id) })
-          .populate("replies", "text author")
+          .populate("author", "username")
+          .populate({
+            path: "replies",
+            select: "text createdDate author",
+            populate: { path: "author", select: "username" }
+          })
           .exec();
         res.status(200).json({ thread });
       } catch (error) {
@@ -65,7 +70,9 @@ const product = app => {
   app.get("/product/:id/reviews", async (req, res) => {
     const { id } = req.params;
     try {
-      const reviews = await Review.find({ target: new ObjectId(id) }).exec();
+      const reviews = await Review.find({ target: new ObjectId(id) })
+        .populate("author username")
+        .exec();
       res.status(200).json({ reviews });
     } catch (error) {
       res.status(500);
@@ -86,7 +93,9 @@ const product = app => {
           text,
           author: uid
         }).save();
-        await Transaction.findByIdAndUpdate(tid, { review: rid }).exec();
+        await Transaction.findByIdAndUpdate(new ObjectId(tid), {
+          review: rid
+        }).exec();
         res.sendStatus(200);
       } catch (error) {
         res.status(500);

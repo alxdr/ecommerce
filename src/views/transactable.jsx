@@ -28,7 +28,7 @@ const TransacTable = React.memo(props => {
               productSection = "This product is no longer available.";
               reviewSection = "Not Applicable";
             } else {
-              const { productName, pid } = product;
+              const { productName, _id: pid } = product;
               productSection = (
                 <Link href="/profile/transaction" data={{ transaction: d }}>
                   <span>{productName}</span>

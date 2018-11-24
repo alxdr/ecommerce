@@ -75,33 +75,37 @@ class Answer extends React.PureComponent {
     }
     return (
       <div className="row justify-content-center">
-        <table className="table table-borderless table-sm">
-          <tbody>
-            <tr>
-              <th>Question:</th>
-              <td>{question}</td>
-            </tr>
-            <tr>
-              <th>Answer:</th>
-              <td className="d-flex flex-column align-items-end">
-                <textarea
-                  id="text"
-                  name="text"
-                  className="form-control mb-2"
-                  value={text}
-                  onChange={this.handleChange}
-                />
-                <button
-                  type="button"
-                  className="btn btn-primary btn-sm"
-                  onClick={this.submit}
-                >
-                  Submit
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="grid-container mx-2 minWidth">
+          <div className="question">
+            <div className="title">
+              <strong className="fullText">Question:</strong>
+              <strong className="shortText">Q:</strong>
+            </div>
+            <div>{question}</div>
+          </div>
+          <div className="answer">
+            <div className="title">
+              <strong className="fullText">Answer:</strong>
+              <strong className="shortText">A:</strong>
+            </div>
+            <div className="d-flex flex-column align-items-end">
+              <textarea
+                id="text"
+                name="text"
+                className="form-control mb-2"
+                value={text}
+                onChange={this.handleChange}
+              />
+              <button
+                type="button"
+                className="btn btn-primary btn-sm"
+                onClick={this.submit}
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

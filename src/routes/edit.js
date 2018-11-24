@@ -1,5 +1,6 @@
 const multer = require("multer");
 const bcrypt = require("bcrypt");
+const { ObjectId } = require("mongoose").Types;
 const Product = require("../db/product");
 const User = require("../db/user");
 const ensureAuthenticated = require("../helpers/ensureAuth");
@@ -30,7 +31,7 @@ const edit = app => {
           text
         };
         if (req.file) update.imageSrc = `/uploads/${req.file.filename}`;
-        await Product.findByIdAndUpdate(pid, update).exec();
+        await Product.findByIdAndUpdate(new ObjectId(pid), update).exec();
         res.sendStatus(200);
       } catch (error) {
         res.status(500);

@@ -10,7 +10,8 @@ const productSchema = new Schema(
     text: String,
     price: { type: String, required: true },
     imageSrc: { type: String, required: true },
-    seller: { type: Schema.Types.ObjectId, required: true, ref: "User" }
+    seller: { type: Schema.Types.ObjectId, required: true, ref: "User" },
+    votes: { type: Number, default: 0 }
   },
   { timestamps: { createdAt: "createdDate", updatedAt: "updatedDate" } }
 );

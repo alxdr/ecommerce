@@ -12,55 +12,78 @@
   text-align: center;
 }
 
-.table-sm {
-  width: 400px;
+.fullText {
+  display: block;
   @media (max-width: 430px) {
-    width: 75vw;
+    display: none;
+  }
+}
+.shortText {
+  display: none;
+  @media (max-width: 430px) {
+    display: block;
   }
 }
 
+.minWidth {
+  min-width: 50vw;
+}
+
+.voter {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
 .grid-container {
-  width: 50vw;
-  @media (max-width: 430px) {
-    width: 75vw;
-  }
   display: grid;
-  grid-template-columns: 50px 1fr;
-  grid-template-rows: 30% 1fr;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
   grid-template-areas: 
-    "votes question"
-    "votes answer";
-  grid-gap: 10px 20px;
+    "voter question"
+    "voter answer";
+  grid-row-gap: 10px; 
+  grid-column-gap: 20px;
+  @media (max-width: 430px) {
+    grid-column-gap: 10px;
+  }
   margin-bottom: 20px;
 
-  .votes {
-    grid-area: votes;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
+  .voter {
+    grid-area: voter;
   }
 
   .question {
     grid-area: question;
     display: grid;
-    grid-template-rows: 1fr;
+    grid-template-rows: auto;
     grid-template-columns: 80px 1fr;
+    @media (max-width: 430px) {
+      grid-template-columns: 1.5rem 1fr;
+    }
     grid-column-gap: 10px;
   }
 
   .answer {
     grid-area: answer;
     display: grid;
-    grid-template-rows: repeat(autofit, 1fr);
-    grid-template-columns: 1fr;
-    grid-row-gap: 10px;
+    grid-template-areas: "title column";
+    grid-template-rows: auto;
+    grid-template-columns: 80px 1fr;
+    @media (max-width: 430px) {
+      grid-template-columns: 1.5rem 1fr;
+    }
+    grid-column-gap: 10px;
+    
+    .title {
+      grid-area: title;
+    }
 
-    .grid-row {
-      display: grid;
-      grid-template-rows: 1fr;
-      grid-template-columns: 80px 1fr;
-      grid-column-gap: 10px;
+    .grid-column {
+      grid-area: column;
+      grid-template-rows: auto;
+      grid-template-columns: auto;
     }
   }
 }

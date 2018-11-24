@@ -18,6 +18,7 @@ const profile = require("./routes/profile");
 const product = require("./routes/product");
 const edit = require("./routes/edit");
 const del = require("./routes/delete");
+const vote = require("./routes/vote");
 
 const app = express();
 
@@ -88,6 +89,7 @@ connect()
       profile(app);
       edit(app);
       del(app);
+      vote(app);
     },
     err => {
       console.log(err);
