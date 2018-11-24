@@ -180,10 +180,7 @@ class Product extends React.PureComponent {
               author: { username }
             } = review;
             return (
-              <div
-                key={reviewId}
-                className="d-inline-flex justify-content-start"
-              >
+              <div key={reviewId} className="d-flex justify-content-start">
                 <Voter
                   vote={this.vote}
                   id={reviewId}

@@ -4,6 +4,17 @@ const Review = require("../db/review");
 const ensureAuthenticated = require("../helpers/ensureAuth");
 const Transaction = require("../db/transaction");
 
+function compare(a, b) {
+  // Descending order based on vote count (higher first)
+  if (a.votes < b.votes) {
+    return 1;
+  }
+  if (a.votes > b.votes) {
+    return -1;
+  }
+  return 0;
+}
+
 const product = app => {
   app
     .route("/product/:id/thread")
@@ -18,6 +29,7 @@ const product = app => {
             populate: { path: "author", select: "username" }
           })
           .exec();
+        thread.sort(compare);
         res.status(200).json({ thread });
       } catch (error) {
         res.status(500);
@@ -73,6 +85,7 @@ const product = app => {
       const reviews = await Review.find({ target: new ObjectId(id) })
         .populate("author username")
         .exec();
+      reviews.sort(compare);
       res.status(200).json({ reviews });
     } catch (error) {
       res.status(500);
