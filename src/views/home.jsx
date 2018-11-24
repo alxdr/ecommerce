@@ -121,7 +121,11 @@ class Home extends React.PureComponent {
         checkOut: true
       },
       [TRANSACTION]: { showError: this.showError, transaction },
-      [PRODUCT]: { product, showError: this.showError },
+      [PRODUCT]: {
+        product,
+        showError: this.showError,
+        addToCart: this.addToCart
+      },
       [EDIT]: { showError: this.showError, edit },
       [REVIEWING]: { showError: this.showError, reviewing },
       [REVIEW]: { review },

@@ -5,7 +5,7 @@ const AddToCartButton = React.memo(props => {
   const success = React.createRef();
   return (
     <>
-      <span className="d-none text-success" ref={success}>
+      <span className="d-none text-success my-2" ref={success}>
         <span className="fas fa-check-circle"> Added to Cart</span>
       </span>
       <button

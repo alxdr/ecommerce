@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import Link from "./link";
 import Voter from "./voter";
+import AddToCartButton from "./addtocart_button";
 
 class Product extends React.PureComponent {
   constructor(props) {
@@ -165,7 +166,8 @@ class Product extends React.PureComponent {
 
   render() {
     const {
-      product: { imageSrc, productName, department, price, text, _id: pid }
+      product: { imageSrc, productName, department, price, text, _id: pid },
+      addToCart
     } = this.props;
     const { thread, reviews, ask } = this.state;
     const reviewsSection =
@@ -271,7 +273,7 @@ class Product extends React.PureComponent {
 
     const formSection = (
       <form className="d-inline-flex justify-content-start">
-        <label htmlFor="ask" className="mr-2 mb-1">
+        <label htmlFor="ask" className="mr-2 mb-0">
           <span className="fas fa-question-circle"> Ask us anything</span>
           <input
             type="text"
@@ -283,10 +285,10 @@ class Product extends React.PureComponent {
             onChange={this.handleChange}
           />
         </label>
-        <div className="form-group d-inline-flex flex-column justify-content-end mb-2">
+        <div className="form-group d-flex mb-0">
           <button
             type="button"
-            className="btn btn-secondary btn-sm"
+            className="btn btn-secondary align-self-end"
             onClick={this.ask}
           >
             Ask
@@ -295,8 +297,16 @@ class Product extends React.PureComponent {
       </form>
     );
     return (
-      <div className="card d-flex flex-column justify-content-around align-items-center my-2">
-        <img className="img-fluid" src={imageSrc} alt={productName} />
+      <div className="card my-2">
+        <div className="card-header">
+          <div className="d-flex justify-content-center my-1">
+            <img
+              className="img-fluid maxHeight"
+              src={imageSrc}
+              alt={productName}
+            />
+          </div>
+        </div>
         <div className="card-body">
           <h5 className="card-title">{productName}</h5>
           <h6 className="card-subtitle mb-2">{department}</h6>
@@ -307,6 +317,9 @@ class Product extends React.PureComponent {
           {threadSection}
           <h3 className="card-subtitle mb-2">Reviews</h3>
           {reviewsSection}
+        </div>
+        <div className="card-footer d-flex justify-content-end">
+          <AddToCartButton addToCart={addToCart} id={pid} />
         </div>
       </div>
     );
@@ -321,7 +334,8 @@ Product.propTypes = {
     price: PropTypes.string,
     text: PropTypes.string
   }).isRequired,
-  showError: PropTypes.func.isRequired
+  showError: PropTypes.func.isRequired,
+  addToCart: PropTypes.func.isRequired
 };
 
 export default Product;
