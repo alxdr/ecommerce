@@ -26,7 +26,7 @@ and also an url to a hosted mongodb instance or your own local one for DB in .en
 
 and get a Stripe account and activate its platform feature to get STRIPE_PUBLIC, STRIPE_SECRET, CLIENT_ID in .env
 
-and lastly, configure nodemailer to use your preferred SMTP email service for MAIL_SERVICE, MAIL_USER, MAIL_PASS in .env
+and configure nodemailer to use your preferred SMTP email service for MAIL_SERVICE, MAIL_USER, MAIL_PASS in .env
 
 ```
 # .env file should look something like this
@@ -45,6 +45,15 @@ MAIL_SERVICE=gmail
 MAIL_USER=<email address>
 MAIL_PASS=<password>
 ```
+
+Lastly, please update the following line in /src/routes/root.jsx to the comment below
+
+```
+const Html = require("../views/html_local").default;
+// const Html = require("../views/html").default;
+```
+
+This is to use CDN hosted files for Bootstrap, jQuery, Popper and Font Awesome instead of the uncommited local files.
 
 ### Running
 
