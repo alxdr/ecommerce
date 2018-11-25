@@ -1,5 +1,4 @@
 require = require("esm")(module); // eslint-disable-line no-global-assign
-require("@babel/polyfill");
 
 const https = require("https");
 const fs = require("fs");

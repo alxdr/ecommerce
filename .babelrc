@@ -1,8 +1,9 @@
 {
   "presets": [
     ["@babel/preset-env", {
+      "targets": "> 0.25%, not dead",
       "modules": false,
-      "useBuiltIns": "entry"
+      "useBuiltIns": "usage"
     }],
     "@babel/preset-flow",
     "@babel/preset-react"

@@ -1,6 +1,6 @@
 const React = require("react");
 const { renderToNodeStream } = require("react-dom/server");
-const Html = require("../views/html").default;
+const Html = require("../views/html_local").default;
 const Home = require("../views/home").default;
 
 const root = app => {

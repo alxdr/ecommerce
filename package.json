@@ -43,6 +43,7 @@
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
     "react-stripe-elements": "^2.0.1",
+    "regenerator-runtime": "^0.12.1",
     "stripe": "^6.13.0"
   },
   "devDependencies": {
@@ -69,7 +70,6 @@
     "parcel-plugin-bundle-visualiser": "^1.2.0",
     "parcel-plugin-compress": "^1.0.6",
     "prettier": "^1.15.1",
-    "regenerator-runtime": "^0.12.1",
     "sass": "^1.15.1",
     "supertest": "^3.3.0"
   }
