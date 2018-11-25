@@ -63,9 +63,9 @@ const TransacTable = React.memo(props => {
             return (
               <tr key={id}>
                 <th scope="row">{index + 1}</th>
-                <td className="w-25">{productSection}</td>
-                <td className="w-25">{`$${amount}`}</td>
-                <td className="w-25">{new Date(date).toLocaleString()}</td>
+                <td>{productSection}</td>
+                <td>{`$${amount}`}</td>
+                <td>{new Date(date).toLocaleString()}</td>
                 <td>{contact}</td>
                 <td>{reviewSection}</td>
               </tr>

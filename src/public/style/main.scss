@@ -29,6 +29,13 @@
   min-width: 50vw;
 }
 
+.maxWidth {
+  max-width: 25%;
+  @media (max-width: 430px) {
+    max-width: 100%;
+  }
+}
+
 .maxHeight {
   max-height: 50vh;
 }

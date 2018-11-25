@@ -10,8 +10,8 @@ const Item = React.memo(props => {
   } = props;
   return (
     <div className="card d-flex flex-md-row flex-sm-column justify-content-around align-items-center my-2">
-      <img className="w-25" src={imageSrc} alt={productName} />
-      <div className="card-body w-75">
+      <img className="img-fluid maxWidth" src={imageSrc} alt={productName} />
+      <div className="card-body">
         <h5 className="card-title">{productName}</h5>
         <h6 className="card-subtitle mb-2">{department}</h6>
         <h6 className="card-subtitle mb-2 text-muted">{`$${price}`}</h6>
