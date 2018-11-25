@@ -8,7 +8,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Ensure that Node 8 and NPM are installed first, then install all dependencies.
+Ensure that Node 10.x and NPM are installed first, then install all dependencies.
 
 ```
 npm install
