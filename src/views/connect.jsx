@@ -14,7 +14,9 @@ const Connect = React.memo(() => {
           <a
             href={`https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${
               process.env.CLIENT_ID
-            }&scope=read_write&state=${token}`}
+            }&scope=read_write&state=${token}&redirect_uri=${
+              process.env.REDIRECT_URI
+            }`}
           >
             <img
               src="/public/images/blue-on-light.png"
