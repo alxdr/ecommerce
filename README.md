@@ -41,6 +41,7 @@ KEY_PATH=<path to key>
 STRIPE_SECRET=<stripe secret key>
 STRIPE_PUBLIC=<stripe public key>
 CLIENT_ID=<stripe client ID>
+REDIRECT_URI=https://localhost:3000/redirect
 MAIL_SERVICE=gmail
 MAIL_USER=<email address>
 MAIL_PASS=<password>
