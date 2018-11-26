@@ -16,21 +16,21 @@ const Carousel = React.memo(() => (
         <div className="carousel-item active">
           <img
             className="d-block w-100"
-            src="/local/images/camera1.jpg"
+            src="/public/images/camera1.jpg"
             alt="First slide"
           />
         </div>
         <div className="carousel-item">
           <img
             className="d-block w-100"
-            src="/local/images/notebook1.jpg"
+            src="/public/images/notebook1.jpg"
             alt="Second slide"
           />
         </div>
         <div className="carousel-item">
           <img
             className="d-block w-100"
-            src="/local/images/phone3.jpg"
+            src="/public/images/phone3.jpg"
             alt="Third slide"
           />
         </div>
