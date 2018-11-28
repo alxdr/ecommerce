@@ -1,40 +1,40 @@
 import React from "react";
 import PropTypes from "prop-types";
-import NavLink from "./navlink";
+import Link from "./link";
 
 const AuthButtons = React.memo(props => {
   const { loggedIn, logout, connected } = props;
   let result = null;
   if (loggedIn) {
     const connect = connected ? (
-      <NavLink href="/sell">
+      <Link href="/sell" className="nav-item nav-link">
         <span className="fas fa-dollar-sign"> Sell</span>
-      </NavLink>
+      </Link>
     ) : (
-      <NavLink href="/connect">
+      <Link href="/connect" className="nav-item nav-link">
         <span className="fab fa-stripe-s"> Start Selling</span>
-      </NavLink>
+      </Link>
     );
     result = (
       <>
         {connect}
-        <NavLink href="/profile">
+        <Link href="/profile" className="nav-item nav-link">
           <span className="fas fa-user"> Profile</span>
-        </NavLink>
-        <NavLink href="/" onClick={logout}>
+        </Link>
+        <Link href="/" onClick={logout} className="nav-item nav-link">
           <span className="fas fa-sign-out-alt"> Logout</span>
-        </NavLink>
+        </Link>
       </>
     );
   } else {
     result = (
       <>
-        <NavLink href="/login">
+        <Link href="/login" className="nav-item nav-link">
           <span className="fas fa-sign-in-alt"> Login</span>
-        </NavLink>
-        <NavLink href="/register">
+        </Link>
+        <Link href="/register" className="nav-item nav-link">
           <span className="fas fa-user-plus"> Register</span>
-        </NavLink>
+        </Link>
       </>
     );
   }

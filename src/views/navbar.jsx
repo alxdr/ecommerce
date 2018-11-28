@@ -2,19 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import AuthButtons from "./auth_buttons";
 import SearchBar from "./search_bar";
-import NavLink from "./navlink";
+import Link from "./link";
 
 const NavBar = React.memo(props => {
   const { loggedIn, logout, showSearch, showError, connected, counter } = props;
 
   return (
     <nav className="nav navbar navbar-expand-lg navbar-light bg-light fixed-top mb-3 nav-fill">
-      <NavLink href="/" className="navbar-brand d-none d-sm-block">
+      <Link href="/" className="navbar-brand nav-item d-none d-sm-block">
         SimpleCommerce
-      </NavLink>
+      </Link>
       <SearchBar showSearch={showSearch} showError={showError} />
       <button
-        className="navbar-toggler ml-5"
+        className="navbar-toggler py-2 px-3"
         type="button"
         data-toggle="collapse"
         data-target="#navbarNav"
@@ -28,22 +28,20 @@ const NavBar = React.memo(props => {
         className="collapse navbar-collapse justify-content-lg-end"
         id="navbarNav"
       >
-        <ul className="navbar-nav">
-          <NavLink href="/" className="navbar-brand d-block d-sm-none">
-            SimpleCommerce
-          </NavLink>
-          <NavLink href="/cart">
-            <span className="fas fa-shopping-cart">
-              {" Cart"}
-              {counter > 0 ? <span id="badge">{counter}</span> : null}
-            </span>
-          </NavLink>
-          <AuthButtons
-            loggedIn={loggedIn}
-            logout={logout}
-            connected={connected}
-          />
-        </ul>
+        <Link href="/" className="navbar-brand nav-item d-block d-sm-none">
+          SimpleCommerce
+        </Link>
+        <Link href="/cart" className="nav-item nav-link">
+          <span className="fas fa-shopping-cart">
+            {" Cart"}
+            {counter > 0 ? <span id="badge">{counter}</span> : null}
+          </span>
+        </Link>
+        <AuthButtons
+          loggedIn={loggedIn}
+          logout={logout}
+          connected={connected}
+        />
       </div>
     </nav>
   );
