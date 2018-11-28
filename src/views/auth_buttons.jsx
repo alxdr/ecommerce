@@ -7,21 +7,21 @@ const AuthButtons = React.memo(props => {
   let result = null;
   if (loggedIn) {
     const connect = connected ? (
-      <Link href="/sell" className="nav-item nav-link text-dark">
+      <Link href="/sell" className="nav-item nav-link">
         <span className="fas fa-dollar-sign"> Sell</span>
       </Link>
     ) : (
-      <Link href="/connect" className="nav-item nav-link text-dark">
+      <Link href="/connect" className="nav-item nav-link">
         <span className="fab fa-stripe-s"> Start Selling</span>
       </Link>
     );
     result = (
       <>
         {connect}
-        <Link href="/profile" className="nav-item nav-link text-dark">
+        <Link href="/profile" className="nav-item nav-link">
           <span className="fas fa-user"> Profile</span>
         </Link>
-        <Link href="/" onClick={logout} className="nav-item nav-link text-dark">
+        <Link href="/" onClick={logout} className="nav-item nav-link">
           <span className="fas fa-sign-out-alt"> Logout</span>
         </Link>
       </>
@@ -29,10 +29,10 @@ const AuthButtons = React.memo(props => {
   } else {
     result = (
       <>
-        <Link href="/login" className="nav-item nav-link text-dark">
+        <Link href="/login" className="nav-item nav-link">
           <span className="fas fa-sign-in-alt"> Login</span>
         </Link>
-        <Link href="/register" className="nav-item nav-link text-dark">
+        <Link href="/register" className="nav-item nav-link">
           <span className="fas fa-user-plus"> Register</span>
         </Link>
       </>

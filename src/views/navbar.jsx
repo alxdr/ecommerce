@@ -28,20 +28,22 @@ const NavBar = React.memo(props => {
         className="collapse navbar-collapse justify-content-lg-end"
         id="navbarNav"
       >
-        <Link href="/" className="navbar-brand nav-item d-block d-sm-none">
-          SimpleCommerce
-        </Link>
-        <Link href="/cart" className="nav-item nav-link text-dark">
-          <span className="fas fa-shopping-cart">
-            {" Cart"}
-            {counter > 0 ? <span id="badge">{counter}</span> : null}
-          </span>
-        </Link>
-        <AuthButtons
-          loggedIn={loggedIn}
-          logout={logout}
-          connected={connected}
-        />
+        <div className="navbar-nav">
+          <Link href="/" className="navbar-brand nav-item d-block d-sm-none">
+            SimpleCommerce
+          </Link>
+          <Link href="/cart" className="nav-item nav-link">
+            <span className="fas fa-shopping-cart">
+              {" Cart"}
+              {counter > 0 ? <span id="badge">{counter}</span> : null}
+            </span>
+          </Link>
+          <AuthButtons
+            loggedIn={loggedIn}
+            logout={logout}
+            connected={connected}
+          />
+        </div>
       </div>
     </nav>
   );
