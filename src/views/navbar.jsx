@@ -31,7 +31,7 @@ const NavBar = React.memo(props => {
         <Link href="/" className="navbar-brand nav-item d-block d-sm-none">
           SimpleCommerce
         </Link>
-        <Link href="/cart" className="nav-item nav-link">
+        <Link href="/cart" className="nav-item nav-link text-dark">
           <span className="fas fa-shopping-cart">
             {" Cart"}
             {counter > 0 ? <span id="badge">{counter}</span> : null}
