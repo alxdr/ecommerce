@@ -315,7 +315,7 @@ class Product extends React.PureComponent {
           <h3 className="card-subtitle mb-2">Questions & Answers</h3>
           {formSection}
           {threadSection}
-          <h3 className="card-subtitle mb-2">Reviews</h3>
+          <h3 className="card-subtitle my-2">Reviews</h3>
           {reviewsSection}
         </div>
         <div className="card-footer d-flex justify-content-end">
