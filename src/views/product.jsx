@@ -171,105 +171,104 @@ class Product extends React.PureComponent {
     } = this.props;
     const { thread, reviews, ask } = this.state;
     const reviewsSection =
-      reviews.length === 0
-        ? null
-        : reviews.map(review => {
-            const {
-              _id: reviewId,
-              votes,
-              text: reviewText,
-              createdDate,
-              author: { username }
-            } = review;
-            return (
-              <div key={reviewId} className="d-flex justify-content-start">
-                <Voter
-                  vote={this.vote}
-                  id={reviewId}
-                  type="review"
-                  voteCount={votes}
-                />
-                <div className="review ml-3">
+      reviews.length === 0 ? (
+        <div>No one has written a review for this product.</div>
+      ) : (
+        reviews.map(review => {
+          const {
+            _id: reviewId,
+            votes,
+            text: reviewText,
+            createdDate,
+            author: { username }
+          } = review;
+          return (
+            <div key={reviewId} className="d-flex justify-content-start">
+              <Voter
+                vote={this.vote}
+                id={reviewId}
+                type="review"
+                voteCount={votes}
+              />
+              <div className="review ml-3">
+                <span className="font-weight-bold mr-2">{username}</span>
+                <span className="text-muted">
+                  {new Date(createdDate).toLocaleDateString()}
+                </span>
+                <p>{reviewText}</p>
+              </div>
+            </div>
+          );
+        })
+      );
+    const threadSection =
+      thread.length === 0 ? (
+        <div>No one has asked a question for this product.</div>
+      ) : (
+        thread.map(msg => {
+          const {
+            replies,
+            _id: id,
+            votes,
+            text: msgText,
+            author: { username },
+            createdDate
+          } = msg;
+          return (
+            <div key={id} className="grid-container">
+              <Voter vote={this.vote} id={id} type="thread" voteCount={votes} />
+              <div className="question">
+                <div className="title">
+                  <strong className="fullText">Question:</strong>
+                  <strong className="shortText">Q:</strong>
+                </div>
+                <div>
+                  <Link
+                    href="/answer"
+                    data={{
+                      answer: { threadId: id, pid, question: msg.text }
+                    }}
+                  >
+                    <p>{msgText}</p>
+                  </Link>
                   <span className="font-weight-bold mr-2">{username}</span>
                   <span className="text-muted">
                     {new Date(createdDate).toLocaleDateString()}
                   </span>
-                  <p>{reviewText}</p>
                 </div>
               </div>
-            );
-          });
-    const threadSection =
-      thread.length === 0
-        ? null
-        : thread.map(msg => {
-            const {
-              replies,
-              _id: id,
-              votes,
-              text: msgText,
-              author: { username },
-              createdDate
-            } = msg;
-            return (
-              <div key={id} className="grid-container">
-                <Voter
-                  vote={this.vote}
-                  id={id}
-                  type="thread"
-                  voteCount={votes}
-                />
-                <div className="question">
-                  <div className="title">
-                    <strong className="fullText">Question:</strong>
-                    <strong className="shortText">Q:</strong>
-                  </div>
-                  <div>
-                    <Link
-                      href="/answer"
-                      data={{
-                        answer: { threadId: id, pid, question: msg.text }
-                      }}
-                    >
-                      <p>{msgText}</p>
-                    </Link>
-                    <span className="font-weight-bold mr-2">{username}</span>
-                    <span className="text-muted">
-                      {new Date(createdDate).toLocaleDateString()}
-                    </span>
-                  </div>
+              <div className="answer">
+                <div className="title">
+                  <strong className="fullText">
+                    {replies.length > 0 ? "Answer:" : null}
+                  </strong>
+                  <strong className="shortText">A:</strong>
                 </div>
-                <div className="answer">
-                  <div className="title">
-                    <strong className="fullText">
-                      {replies.length > 0 ? "Answer:" : null}
-                    </strong>
-                    <strong className="shortText">A:</strong>
-                  </div>
-                  <div className="grid-column">
-                    {replies.map(reply => {
-                      const {
-                        _id: replyId,
-                        author: { username: replyUsername },
-                        createdDate: replyDate
-                      } = reply;
-                      return (
-                        <div key={replyId}>
-                          <p>{reply.text}</p>
-                          <span className="font-weight-bold mr-2">
-                            {replyUsername}
-                          </span>
-                          <span className="text-muted">
-                            {new Date(replyDate).toLocaleDateString()}
-                          </span>
-                        </div>
-                      );
-                    })}
-                  </div>
+                <div className="grid-column">
+                  {replies.map(reply => {
+                    const {
+                      _id: replyId,
+                      author: { username: replyUsername },
+                      createdDate: replyDate
+                    } = reply;
+                    return (
+                      <div key={replyId}>
+                        <p>{reply.text}</p>
+                        <span className="font-weight-bold mr-2">
+                          {replyUsername}
+                        </span>
+                        <span className="text-muted">
+                          {new Date(replyDate).toLocaleDateString()}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
-            );
-          });
+            </div>
+          );
+        })
+      );
 
     const formSection = (
       <form className="d-inline-flex justify-content-start">
