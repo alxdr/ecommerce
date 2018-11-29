@@ -47,15 +47,6 @@ MAIL_USER=<email address>
 MAIL_PASS=<password>
 ```
 
-Lastly, please update the following line in /src/routes/root.jsx to the comment below
-
-```
-const Html = require("../views/html_local").default;
-// const Html = require("../views/html").default;
-```
-
-This is to use CDN hosted files for Bootstrap, jQuery, Popper and Font Awesome instead of the uncommited local files.
-
 ### Running
 
 ```
