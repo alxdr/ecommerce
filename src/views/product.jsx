@@ -239,10 +239,12 @@ class Product extends React.PureComponent {
               </div>
               <div className="answer">
                 <div className="title">
-                  <strong className="fullText">
-                    {replies.length > 0 ? "Answer:" : null}
-                  </strong>
-                  <strong className="shortText">A:</strong>
+                  {replies.length > 0 ? (
+                    <>
+                      <strong className="fullText">Answer:</strong>
+                      <strong className="shortText">A:</strong>
+                    </>
+                  ) : null}
                 </div>
                 <div className="grid-column">
                   {replies.map(reply => {
