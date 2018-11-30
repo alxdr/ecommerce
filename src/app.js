@@ -27,23 +27,11 @@ app.use(
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
-        imgSrc: ["'self'", "http://lorempixel.com/", "https://stripe.com/img/"],
-        styleSrc: [
-          "'self'",
-          "https://use.fontawesome.com/",
-          "https://stackpath.bootstrapcdn.com/bootstrap/"
-        ],
-        scriptSrc: [
-          "'self'",
-          "https://code.jquery.com/",
-          "https://unpkg.com/react@16/",
-          "https://unpkg.com/react-dom@16/",
-          "https://stackpath.bootstrapcdn.com/bootstrap/",
-          "https://cdnjs.cloudflare.com/ajax/libs/popper.js/",
-          "https://js.stripe.com/v3/"
-        ],
+        imgSrc: ["'self'", "https://stripe.com/img/"],
+        styleSrc: ["'self'"],
+        scriptSrc: ["'self'", "https://js.stripe.com/v3/"],
         frameSrc: ["'self'", "https://js.stripe.com/"],
-        fontSrc: ["'self'", "https://use.fontawesome.com/"]
+        fontSrc: ["'self'"]
       }
     }
   })
@@ -61,7 +49,6 @@ app.use(
 );
 app.use(compression());
 app.use("/public", express.static(`${process.cwd()}/public`));
-app.use("/local", express.static(`${process.cwd()}/local`));
 app.use("/uploads", express.static(`${process.cwd()}/.uploads`));
 
 connect()
