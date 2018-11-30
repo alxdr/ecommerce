@@ -9,7 +9,7 @@
     "babel": "babel src --out-dir lib --copy-files",
     "bundle": "parcel build ./src/public/index.html --experimental-scope-hoisting --public-url ./dist/",
     "build": "npm run babel && npm run bundle",
-    "start": "npm run build && node server.js",
+    "start": "node server.js",
     "db": "mongod --port 27017 --dbpath=./data"
   },
   "keywords": [],

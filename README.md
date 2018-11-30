@@ -47,7 +47,15 @@ MAIL_USER=<email address>
 MAIL_PASS=<password>
 ```
 
+Build before running.
+
+```
+npm run build
+```
+
 ### Running
+
+If you are using a local mongodb, run it before executing the following.
 
 ```
 npm start
