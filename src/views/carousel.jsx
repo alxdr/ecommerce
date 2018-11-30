@@ -4,7 +4,7 @@ const Carousel = React.memo(() => (
   <div className="row justify-content-center">
     <div
       id="carousel"
-      className="carousel slide carousel-fade w-75 h-50"
+      className="carousel slide carousel-fade w-75"
       data-ride="carousel"
     >
       <ol className="carousel-indicators">

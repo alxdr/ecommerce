@@ -19,7 +19,7 @@ const Item = React.memo(props => {
         <Link
           href={`/product?id=${id}`}
           data={{ product: data }}
-          className="btn btn-info mr-2"
+          className="btn btn-info mr-2 mb-2"
           role="button"
         >
           <span className="fas fa-eye text-white"> View</span>

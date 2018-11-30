@@ -75,7 +75,7 @@ class Answer extends React.PureComponent {
     }
     return (
       <div className="row justify-content-center">
-        <div className="grid-container mx-2 minWidth">
+        <div className="grid-container mx-2 customForm">
           <div className="question">
             <div className="title">
               <strong className="fullText">Question:</strong>

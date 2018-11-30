@@ -79,7 +79,7 @@ class Reviewing extends React.PureComponent {
         <form
           action={`/product/${pid}/reviews/${tid}`}
           method="post"
-          className="w-50 d-flex flex-column justify-content-center align-items-end"
+          className="customForm d-flex flex-column justify-content-center align-items-end"
         >
           <label htmlFor="review" className="w-100">
             <span>Review: </span>

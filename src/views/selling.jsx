@@ -19,7 +19,7 @@ class Selling extends React.PureComponent {
     return (
       <>
         <Link
-          className="btn btn-warning mr-2"
+          className="btn btn-warning mr-2 mb-2"
           href={`/profile/edit/selling?id=${id}`}
           data={{ edit: data }}
         >
@@ -27,14 +27,14 @@ class Selling extends React.PureComponent {
         </Link>
         <button
           type="button"
-          className="btn btn-outline-danger"
+          className="btn btn-outline-danger mb-2"
           onClick={disappear}
         >
           <span className="fas fa-trash"> Delete</span>
         </button>
         <button
           type="button"
-          className="btn btn-danger d-none"
+          className="btn btn-danger d-none mb-2"
           onClick={() => deleteProduct(id)}
         >
           <span className="fas fa-trash"> Confirm?</span>

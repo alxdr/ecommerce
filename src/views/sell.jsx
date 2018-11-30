@@ -121,7 +121,7 @@ class Sell extends React.PureComponent {
     }
     return (
       <div className="row justify-content-center">
-        <form action="/sell" method="post" id="form" className="w-50">
+        <form action="/sell" method="post" id="form" className="customForm">
           <div className="form-group">
             <label htmlFor="productName" className="w-100 d-flex flex-column">
               <span>

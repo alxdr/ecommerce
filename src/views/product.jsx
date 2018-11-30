@@ -191,11 +191,11 @@ class Product extends React.PureComponent {
                 voteCount={votes}
               />
               <div className="review ml-3">
-                <span className="font-weight-bold mr-2">{username}</span>
+                <span className="font-weight-bold d-block">{username}</span>
                 <span className="text-muted">
                   {new Date(createdDate).toLocaleDateString()}
                 </span>
-                <p>{reviewText}</p>
+                <p className="mb-0">{reviewText}</p>
               </div>
             </div>
           );
@@ -229,9 +229,9 @@ class Product extends React.PureComponent {
                       answer: { threadId: id, pid, question: msg.text }
                     }}
                   >
-                    <p>{msgText}</p>
+                    <p className="mb-0">{msgText}</p>
                   </Link>
-                  <span className="font-weight-bold mr-2">{username}</span>
+                  <span className="font-weight-bold d-block">{username}</span>
                   <span className="text-muted">
                     {new Date(createdDate).toLocaleDateString()}
                   </span>
@@ -255,8 +255,8 @@ class Product extends React.PureComponent {
                     } = reply;
                     return (
                       <div key={replyId}>
-                        <p>{reply.text}</p>
-                        <span className="font-weight-bold mr-2">
+                        <p className="mb-0">{reply.text}</p>
+                        <span className="font-weight-bold d-block">
                           {replyUsername}
                         </span>
                         <span className="text-muted">
@@ -301,11 +301,7 @@ class Product extends React.PureComponent {
       <div className="card my-2">
         <div className="card-header">
           <div className="d-flex justify-content-center my-1">
-            <img
-              className="img-fluid maxHeight"
-              src={imageSrc}
-              alt={productName}
-            />
+            <img className="productImage" src={imageSrc} alt={productName} />
           </div>
         </div>
         <div className="card-body">

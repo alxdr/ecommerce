@@ -99,19 +99,19 @@ class ShoppingCart extends React.PureComponent {
         <>
           <List data={data} render={this.cartRenderProp} />
           <div className="row justify-content-end align-items-center">
-            <span className="mr-3">
+            <span className="mr-3 mb-2">
               <strong>{`Total: $${amount}`}</strong>
             </span>
             <button
               type="button"
-              className="btn btn-secondary mr-3"
+              className="btn btn-secondary mr-3 mb-2"
               onClick={clearCart}
             >
               Clear Cart
             </button>
             <button
               type="button"
-              className="btn btn-primary mr-3"
+              className="btn btn-primary mr-3 mb-2"
               onClick={showCheckOut}
             >
               Pay With Card

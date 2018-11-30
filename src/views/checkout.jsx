@@ -319,7 +319,7 @@ class CheckOut extends React.PureComponent {
     return (
       <>
         <div className="row justify-content-center">
-          <div className="checkout card w-50">
+          <div className="checkout card">
             <div className="card-header">Shipping Info</div>
             <div className="card-body d-flex flex-column align-items-center">
               <label htmlFor="name" className="w-100">
@@ -420,7 +420,7 @@ class CheckOut extends React.PureComponent {
           </div>
         </div>
         <div className="row justify-content-center">
-          <div className="checkout card w-50">
+          <div className="checkout card">
             <div className="card-header">Billing Info</div>
             <div className="card-body d-flex flex-column align-items-center">
               <div className="form-check input-group mb-3">
@@ -534,7 +534,7 @@ class CheckOut extends React.PureComponent {
           </div>
         </div>
         <div className="row justify-content-center">
-          <div className="checkout card w-50">
+          <div className="checkout card">
             <div className="card-header">
               Debit or Credit Card
               <sup>*</sup>

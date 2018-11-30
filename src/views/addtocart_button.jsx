@@ -5,12 +5,12 @@ const AddToCartButton = React.memo(props => {
   const success = React.createRef();
   return (
     <>
-      <span className="d-none text-success my-2" ref={success}>
+      <span className="d-none text-success my-2 mb-2" ref={success}>
         <span className="fas fa-check-circle"> Added to Cart</span>
       </span>
       <button
         type="button"
-        className="btn btn-success"
+        className="btn btn-success mb-2"
         onClick={event => {
           event.currentTarget.classList.add("d-none");
           success.current.classList.remove("d-none");
