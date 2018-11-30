@@ -47,7 +47,7 @@ MAIL_USER=<email address>
 MAIL_PASS=<password>
 ```
 
-Build before running.
+You only need to build once before running for the first time.
 
 ```
 npm run build
