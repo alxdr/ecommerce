@@ -33,7 +33,8 @@ app.use(
         frameSrc: ["'self'", "https://js.stripe.com/"],
         fontSrc: ["'self'"]
       }
-    }
+    },
+    hidePoweredBy: { setTo: "PHP 7.3.0" }
   })
 );
 app.use(express.json());
@@ -77,6 +78,21 @@ connect()
       edit(app);
       del(app);
       vote(app);
+
+      app.use((err, req, res, next) => {
+        if (err.code !== "EBADCSRFTOKEN") return next(err);
+        // handle CSRF token errors here
+        res.status(403);
+        res.type("txt");
+        return res.send("Form tampered with!");
+      });
+
+      app.use((err, req, res, next) => {
+        if (res.headersSent) return next(err);
+        res.status(500);
+        res.type("txt");
+        return res.send("Something broke on the server!");
+      });
     },
     err => {
       console.log(err);
@@ -87,21 +103,5 @@ connect()
     console.log(err);
     console.error(err.stack);
   });
-
-app.use((err, req, res, next) => {
-  if (err.code !== "EBADCSRFTOKEN") return next(err);
-  // handle CSRF token errors here
-  res.status(403);
-  res.type("txt");
-  return res.send("Form tampered with!");
-});
-
-app.use((err, req, res, next) => {
-  if (res.headersSent) return next(err);
-  console.error(err.stack);
-  res.status(500);
-  res.type("txt");
-  return res.send("Something broke!");
-});
 
 module.exports = app;
