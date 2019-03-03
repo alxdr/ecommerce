@@ -1,6 +1,6 @@
 {
   "name": "ecomm",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -8,13 +8,17 @@
     "watch": "jest --watch",
     "babel": "babel src --out-dir lib --copy-files",
     "bundle": "parcel build ./src/public/index.html --experimental-scope-hoisting --public-url ./dist/",
-    "build": "npm run babel && npm run bundle",
+    "build": "rm -rf ./dist && npm run babel && npm run bundle",
     "start": "node server.js",
     "db": "mongod --port 27017 --dbpath=./data"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alxdr/ecommerce.git"
+  },
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "@fortawesome/fontawesome-free": "^5.5.0",
@@ -45,8 +49,8 @@
     "passport-local": "^1.0.0",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",
-    "react": "^16.6.1",
-    "react-dom": "^16.6.1",
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3",
     "react-stripe-elements": "^2.0.1",
     "regenerator-runtime": "^0.12.1",
     "stripe": "^6.13.0",
@@ -70,6 +74,7 @@
     "eslint-plugin-jsx-a11y": "^6.1.2",
     "eslint-plugin-prettier": "^3.0.0",
     "eslint-plugin-react": "^7.11.1",
+    "eslint-plugin-react-hooks": "^1.2.0",
     "flow-bin": "^0.82.0",
     "jest": "^23.6.0",
     "parcel-bundler": "^1.10.3",

@@ -1,24 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-class Answer extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: ""
-    };
-    this.handleChange = this.handleChange.bind(this);
-    this.submit = this.submit.bind(this);
-  }
+const Answer = React.memo(props => {
+  const {
+    answer: { threadId, pid, question },
+    showError
+  } = props;
+  const [text, setText] = useState("");
+  const [isComplete, setIsComplete] = useState(false);
 
-  submit(event) {
+  const handleSubmit = event => {
     event.preventDefault();
-    const {
-      answer: { threadId, pid },
-      showError
-    } = this.props;
-    const { text } = this.state;
     const token = document
       .querySelector('meta[name="csrf-token"]')
       .getAttribute("content");
@@ -33,11 +26,7 @@ class Answer extends React.PureComponent {
           }
         }
       )
-      .then(() => {
-        this.setState({
-          complete: true
-        });
-      })
+      .then(() => setIsComplete(true))
       .catch(error => {
         if (error.response) {
           if (error.response.status === 401) {
@@ -51,65 +40,55 @@ class Answer extends React.PureComponent {
           showError(error);
         }
       });
-  }
+  };
 
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
+  const handleChange = event => setText(event.target.value);
 
-  render() {
-    const {
-      answer: { question }
-    } = this.props;
-    const { text, complete } = this.state;
-    if (complete) {
-      return (
-        <div className="alert alert-success text-center" role="alert">
-          <span className="fas fa-check-circle">
-            <strong> Success</strong>
-          </span>
-        </div>
-      );
-    }
+  if (isComplete) {
     return (
-      <div className="row justify-content-center">
-        <div className="grid-container mx-2 customForm">
-          <div className="question">
-            <div className="title">
-              <strong className="fullText">Question:</strong>
-              <strong className="shortText">Q:</strong>
-            </div>
-            <div>{question}</div>
-          </div>
-          <div className="answer">
-            <div className="title">
-              <strong className="fullText">Answer:</strong>
-              <strong className="shortText">A:</strong>
-            </div>
-            <div className="d-flex flex-column align-items-end">
-              <textarea
-                id="text"
-                name="text"
-                className="form-control mb-2"
-                value={text}
-                onChange={this.handleChange}
-              />
-              <button
-                type="button"
-                className="btn btn-primary btn-sm"
-                onClick={this.submit}
-              >
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
+      <div className="alert alert-success text-center" role="alert">
+        <span className="fas fa-check-circle">
+          <strong> Success</strong>
+        </span>
       </div>
     );
   }
-}
+  return (
+    <div className="row justify-content-center">
+      <div className="grid-container mx-2 customForm">
+        <div className="question">
+          <div className="title">
+            <strong className="fullText">Question:</strong>
+            <strong className="shortText">Q:</strong>
+          </div>
+          <div>{question}</div>
+        </div>
+        <div className="answer">
+          <div className="title">
+            <strong className="fullText">Answer:</strong>
+            <strong className="shortText">A:</strong>
+          </div>
+          <div className="d-flex flex-column align-items-end">
+            <textarea
+              id="text"
+              name="text"
+              className="form-control mb-2"
+              value={text}
+              onChange={handleChange}
+            />
+            <button
+              type="button"
+              className="btn btn-primary btn-sm"
+              onClick={handleSubmit}
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+});
 
 Answer.propTypes = {
   answer: PropTypes.objectOf(PropTypes.string).isRequired,

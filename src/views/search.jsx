@@ -1,24 +1,16 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import List from "./list";
 import AddToCartButton from "./addtocart_button";
 
-class Search extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.searchRenderProp = this.searchRenderProp.bind(this);
-  }
-
-  searchRenderProp(id) {
-    const { addToCart } = this.props;
-    return <AddToCartButton addToCart={addToCart} id={id} />;
-  }
-
-  render() {
-    const { data } = this.props;
-    return <List data={data} render={this.searchRenderProp} />;
-  }
-}
+const Search = React.memo(props => {
+  const { addToCart, data } = props;
+  const searchRenderProp = useCallback(
+    id => <AddToCartButton addToCart={addToCart} id={id} />,
+    [addToCart]
+  );
+  return <List data={data} render={searchRenderProp} />;
+});
 
 Search.defaultProps = {
   data: null

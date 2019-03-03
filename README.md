@@ -61,6 +61,8 @@ If you are using a local mongodb, run it before executing the following.
 npm start
 ```
 
+Note: It runs on the server on HTTPS so go to `https://localhost:3000/` instead.
+
 ## Running the tests
 
 ```

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import url from "url";
 import NavBar from "./navbar";
@@ -37,220 +37,180 @@ const REVIEWING = "/profile/transaction/reviewing";
 const REVIEW = "/profile/transaction/review";
 const ANSWER = "/answer";
 
-class Home extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cart: [],
-      show: ROOT,
-      searchData: null,
-      error: null,
-      connected: false,
-      loggedIn: false,
-      transaction: null,
-      product: null,
-      edit: null,
-      review: null,
-      reviewing: null,
-      answer: null
-    };
-    this.renderURL = this.renderURL.bind(this);
-    this.clearCart = this.clearCart.bind(this);
-    this.showSearch = this.showSearch.bind(this);
-    this.showError = this.showError.bind(this);
-    this.addToCart = this.addToCart.bind(this);
-    this.removeFromCart = this.removeFromCart.bind(this);
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-    this.showCheckOut = this.showCheckOut.bind(this);
-  }
+const pages = {
+  [ROOT]: Carousel,
+  [SEARCH]: Search,
+  [ERROR]: Err,
+  [LOGIN]: Login,
+  [REGISTER]: Register,
+  [CART]: ShoppingCart,
+  [CONNECT]: Connect,
+  [SELL]: Sell,
+  [PROFILE]: Profile,
+  [CHECKOUT]: ShoppingCart,
+  [TRANSACTION]: Transaction,
+  [PRODUCT]: Product,
+  [EDIT]: Edit,
+  [REVIEWING]: Reviewing,
+  [REVIEW]: Review,
+  [ANSWER]: Answer
+};
 
-  componentWillMount() {
-    const {
-      cart,
-      searchData,
-      error,
-      transaction,
-      product,
-      edit,
-      review,
-      reviewing,
-      answer
-    } = this.state;
-    this.pages = {
-      [ROOT]: Carousel,
-      [SEARCH]: Search,
-      [ERROR]: Err,
-      [LOGIN]: Login,
-      [REGISTER]: Register,
-      [CART]: ShoppingCart,
-      [CONNECT]: Connect,
-      [SELL]: Sell,
-      [PROFILE]: Profile,
-      [CHECKOUT]: ShoppingCart,
-      [TRANSACTION]: Transaction,
-      [PRODUCT]: Product,
-      [EDIT]: Edit,
-      [REVIEWING]: Reviewing,
-      [REVIEW]: Review,
-      [ANSWER]: Answer
-    };
-    this.pageProps = {
-      [ROOT]: {},
-      [SEARCH]: { data: searchData, addToCart: this.addToCart },
-      [ERROR]: { error },
-      [LOGIN]: { auth: this.login },
-      [REGISTER]: { auth: this.login },
-      [CART]: {
-        cart,
-        removeFromCart: this.removeFromCart,
-        showError: this.showError,
-        showCheckOut: this.showCheckOut,
-        clearCart: this.clearCart,
-        checkOut: false
-      },
-      [CONNECT]: {},
-      [SELL]: { showError: this.showError },
-      [PROFILE]: { showError: this.showError },
-      [CHECKOUT]: {
-        cart,
-        removeFromCart: this.removeFromCart,
-        showError: this.showError,
-        showCheckOut: this.showCheckOut,
-        clearCart: this.clearCart,
-        checkOut: true
-      },
-      [TRANSACTION]: { showError: this.showError, transaction },
-      [PRODUCT]: {
-        product,
-        showError: this.showError,
-        addToCart: this.addToCart
-      },
-      [EDIT]: { showError: this.showError, edit },
-      [REVIEWING]: { showError: this.showError, reviewing },
-      [REVIEW]: { review },
-      [ANSWER]: { answer, showError: this.showError }
-    };
-  }
+const Home = React.memo(() => {
+  const [cart, setCart] = useState([]);
+  const [showRoute, setShowRoute] = useState(ROOT);
+  const [error, setError] = useState(null);
+  const [isConnected, setIsConnected] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [data, setData] = useState({
+    search: null,
+    transaction: null,
+    product: null,
+    edit: null,
+    review: null,
+    reviewing: null,
+    answer: null
+  });
+  const {
+    search: searchData,
+    transaction: transactionData,
+    product: productData,
+    edit: editData,
+    review: reviewData,
+    reviewing: reviewingData,
+    answer: answerData
+  } = data;
 
-  componentDidMount() {
-    this.unlisten = history.listen(this.renderURL);
-    this.history = history;
-    this.history.replace(ROOT);
+  const renderURL = useCallback(location => {
+    const { pathname } = url.parse(location.pathname);
+    setData(prevData => ({ ...prevData, ...location.state }));
+    setShowRoute(pathname);
+  });
+
+  useEffect(() => {
+    const unlisten = history.listen(renderURL);
+    history.replace(ROOT);
+    return unlisten;
+  }, []);
+
+  useEffect(() => {
     axios.get("/check").then(res => {
       const { loggedIn, connected } = res.data;
-      if (loggedIn) this.setState({ loggedIn, connected });
+      if (loggedIn) {
+        setIsLoggedIn(loggedIn);
+        setIsConnected(connected);
+      }
     });
-  }
+  }, []);
 
-  componentWillUnmount() {
-    this.unlisten();
-  }
+  const login = useCallback(connected => {
+    setIsLoggedIn(true);
+    setIsConnected(connected);
+    history.push(ROOT);
+  }, []);
 
-  login(connected) {
-    this.setState({
-      loggedIn: true,
-      connected
-    });
-    this.history.push(ROOT);
-  }
+  const logout = useCallback(() => {
+    axios
+      .get("/logout")
+      .then(() => setIsLoggedIn(false))
+      .catch(nextError => setError(nextError));
+  }, []);
 
-  logout() {
-    axios.get("/logout");
-    this.setState({
-      loggedIn: false
-    });
-  }
+  const showSearch = useCallback(
+    ({ result, query }) => {
+      setData(prevData => ({ ...prevData, search: result }));
+      history.push(`${SEARCH}?query=${query}`);
+    },
+    [data]
+  );
 
-  showSearch({ result: data, query }) {
-    this.setState({ searchData: data });
-    this.history.push(`${SEARCH}?query=${query}`);
-  }
+  const showError = useCallback(nextError => {
+    setError(nextError);
+    history.push(ERROR);
+  }, []);
 
-  showError(error) {
-    this.setState({ error });
-    this.history.push(ERROR);
-  }
+  const showCheckOut = useCallback(
+    () => {
+      if (isLoggedIn) {
+        history.push(CHECKOUT);
+      } else {
+        showError(Error("Sorry, you have to log in first."));
+      }
+    },
+    [isLoggedIn]
+  );
 
-  showCheckOut() {
-    const { loggedIn } = this.state;
-    if (loggedIn) {
-      this.history.push(CHECKOUT);
-    } else {
-      this.showError(Error("Sorry, you have to log in first."));
-    }
-  }
+  const addToCart = useCallback(id => setCart(prevCart => [...prevCart, id]), [
+    cart
+  ]);
 
-  addToCart(id) {
-    this.setState(state => ({
-      cart: [...state.cart, id]
-    }));
-  }
+  const removeFromCart = useCallback(
+    index => {
+      if (cart[index]) {
+        setCart(prevCart => {
+          const nextCart = prevCart.slice();
+          nextCart.splice(index, 1);
+          return nextCart;
+        });
+      }
+    },
+    [cart]
+  );
 
-  removeFromCart(id) {
-    this.setState(state => {
-      const cart = state.cart.slice();
-      const index = cart.indexOf(id);
-      if (index === -1) return {};
-      cart.splice(index, 1);
-      return { cart };
-    });
-  }
+  const clearCart = useCallback(() => setCart([]), []);
 
-  clearCart() {
-    this.setState({ cart: [] });
-  }
-
-  renderURL(location) {
-    const { pathname } = url.parse(location.pathname);
-    const state = Object.assign({ show: pathname }, location.state);
-    this.setState(state);
-  }
-
-  render() {
-    const {
-      loggedIn,
+  const pageProps = {
+    [ROOT]: {},
+    [SEARCH]: { data: searchData, addToCart },
+    [ERROR]: { error },
+    [LOGIN]: { auth: login },
+    [REGISTER]: { auth: login },
+    [CART]: {
       cart,
-      show,
-      searchData,
-      error,
-      connected,
-      transaction,
-      product,
-      edit,
-      review,
-      reviewing,
-      answer
-    } = this.state;
-
-    this.pageProps[SEARCH].data = searchData;
-    this.pageProps[ERROR].error = error;
-    this.pageProps[CART].cart = cart;
-    this.pageProps[CHECKOUT].cart = cart;
-    this.pageProps[TRANSACTION].transaction = transaction;
-    this.pageProps[PRODUCT].product = product;
-    this.pageProps[EDIT].edit = edit;
-    this.pageProps[REVIEW].review = review;
-    this.pageProps[REVIEWING].reviewing = reviewing;
-    this.pageProps[ANSWER].answer = answer;
-
-    const Component = this.pages[show];
-    return (
-      <ErrorBoundary>
-        <NavBar
-          showSearch={this.showSearch}
-          showError={this.showError}
-          logout={this.logout}
-          loggedIn={loggedIn}
-          connected={connected}
-          counter={cart.length}
-        />
-        <main className="container-fluid mt-5 pt-3" id="container">
-          <Component {...this.pageProps[show]} />
-        </main>
-      </ErrorBoundary>
-    );
-  }
-}
+      removeFromCart,
+      showError,
+      showCheckOut,
+      clearCart,
+      checkOut: false
+    },
+    [CONNECT]: {},
+    [SELL]: { showError },
+    [PROFILE]: { showError },
+    [CHECKOUT]: {
+      cart,
+      removeFromCart,
+      showError,
+      showCheckOut,
+      clearCart,
+      checkOut: true
+    },
+    [TRANSACTION]: { showError, transaction: transactionData },
+    [PRODUCT]: {
+      product: productData,
+      showError,
+      addToCart
+    },
+    [EDIT]: { showError, edit: editData },
+    [REVIEWING]: { showError, reviewing: reviewingData },
+    [REVIEW]: { review: reviewData },
+    [ANSWER]: { answer: answerData, showError }
+  };
+  const Component = pages[showRoute];
+  return (
+    <ErrorBoundary>
+      <NavBar
+        showSearch={showSearch}
+        showError={showError}
+        logout={logout}
+        loggedIn={isLoggedIn}
+        connected={isConnected}
+        counter={cart.length}
+      />
+      <main className="container-fluid mt-5 pt-3" id="container">
+        <Component {...pageProps[showRoute]} />
+      </main>
+    </ErrorBoundary>
+  );
+});
 
 export default Home;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import List from "./list";
 import Link from "./link";
@@ -8,15 +8,10 @@ function disappear(event) {
   event.currentTarget.nextElementSibling.classList.remove("d-none");
 }
 
-class Selling extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.renderProp = this.renderProp.bind(this);
-  }
-
-  renderProp(id, data) {
-    const { deleteProduct } = this.props;
-    return (
+const Selling = React.memo(props => {
+  const { deleteProduct, data: listData } = props;
+  const renderProp = useCallback(
+    (id, data) => (
       <>
         <Link
           className="btn btn-warning mr-2 mb-2"
@@ -40,14 +35,12 @@ class Selling extends React.PureComponent {
           <span className="fas fa-trash"> Confirm?</span>
         </button>
       </>
-    );
-  }
+    ),
+    [deleteProduct]
+  );
 
-  render() {
-    const { data } = this.props;
-    return <List data={data} render={this.renderProp} />;
-  }
-}
+  return <List data={listData} render={renderProp} />;
+});
 
 Selling.propTypes = {
   data: PropTypes.arrayOf(

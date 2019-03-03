@@ -5,9 +5,10 @@ import Item from "./item";
 const List = React.memo(props => {
   const { data, render } = props;
   if (data === null) return null;
-  return data.map(d => {
+  return data.map((d, i) => {
     const { _id: id } = d;
-    return <Item key={id} data={d} render={render} />;
+    const key = `${id}-${i}`;
+    return <Item key={key} data={d} render={render} index={i} />;
   });
 });
 

@@ -1,22 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-class SearchBar extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      query: ""
-    };
-    this.search = this.search.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
+const SearchBar = React.memo(props => {
+  const { showError, showSearch } = props;
+  const [query, setQuery] = useState("");
 
-  search(event) {
+  const search = event => {
     event.preventDefault();
     event.stopPropagation();
-    const { query } = this.state;
-    const { showSearch, showError } = this.props;
     axios
       .get(`/search?query=${query}`)
       .then(response => {
@@ -31,43 +23,36 @@ class SearchBar extends React.PureComponent {
           showError(error);
         }
       });
-  }
+  };
 
-  handleChange(event) {
-    this.setState({
-      query: event.target.value
-    });
-  }
+  const handleChange = event => setQuery(event.target.value);
 
-  render() {
-    const { query } = this.state;
-    return (
-      <form
-        className="form-inline"
-        method="get"
-        action="/search"
-        onSubmit={this.search}
-      >
-        <div className="input-group">
-          <input
-            className="form-control"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            name="search"
-            value={query}
-            onChange={this.handleChange}
-          />
-          <div className="input-group-append">
-            <button className="btn btn-success" type="submit">
-              <span className="fas fa-search" />
-            </button>
-          </div>
+  return (
+    <form
+      className="form-inline"
+      method="get"
+      action="/search"
+      onSubmit={search}
+    >
+      <div className="input-group">
+        <input
+          className="form-control"
+          type="search"
+          placeholder="Search"
+          aria-label="Search"
+          name="search"
+          value={query}
+          onChange={handleChange}
+        />
+        <div className="input-group-append">
+          <button className="btn btn-success" type="submit">
+            <span className="fas fa-search" />
+          </button>
         </div>
-      </form>
-    );
-  }
-}
+      </div>
+    </form>
+  );
+});
 
 SearchBar.propTypes = {
   showSearch: PropTypes.func.isRequired,

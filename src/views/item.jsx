@@ -6,7 +6,8 @@ const Item = React.memo(props => {
   const {
     data: { productName, department, text, price, imageSrc, _id: id },
     render,
-    data
+    data,
+    index
   } = props;
   return (
     <div className="card d-flex flex-md-row flex-sm-column justify-content-around align-items-center my-2">
@@ -24,7 +25,7 @@ const Item = React.memo(props => {
         >
           <span className="fas fa-eye text-white"> View</span>
         </Link>
-        {render(id, data)}
+        {render(id, data, index)}
       </div>
     </div>
   );
@@ -38,7 +39,8 @@ Item.propTypes = {
     text: PropTypes.string,
     price: PropTypes.string
   }).isRequired,
-  render: PropTypes.func.isRequired
+  render: PropTypes.func.isRequired,
+  index: PropTypes.number.isRequired
 };
 
 export default Item;
