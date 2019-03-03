@@ -1,8 +1,5 @@
 const fs = require("fs");
 const map = require("through2-map");
-const React = require("react");
-const { renderToString } = require("react-dom/server");
-const Home = require("../views/home").default;
 
 const root = app => {
   app.get("/", (req, res) => {
@@ -14,18 +11,8 @@ const root = app => {
         `<meta name="csrf-token" content="${token}">`
       )
     );
-    const renderedStr = renderToString(<Home />);
-    const writeRender = map({ wantStrings: true }, str =>
-      str.replace(
-        '<div id="root"></div>',
-        `<div id="root">${renderedStr}</div>`
-      )
-    );
     res.type("html");
-    stream
-      .pipe(writeToken)
-      .pipe(writeRender)
-      .pipe(res);
+    stream.pipe(writeToken).pipe(res);
   });
 };
 
