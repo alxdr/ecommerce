@@ -1,24 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, Suspense } from "react";
 import axios from "axios";
 import url from "url";
-import NavBar from "./navbar";
-import Carousel from "./carousel";
-import Search from "./search";
-import Login from "./login";
-import Register from "./register";
-import ShoppingCart from "./shoppingcart";
-import Connect from "./connect";
-import Err from "./error";
 import history from "../helpers/history";
-import Sell from "./sell";
-import Profile from "./profile";
+import NavBar from "./navbar";
 import ErrorBoundary from "./errbound";
-import Product from "./product";
-import Transaction from "./transaction";
-import Edit from "./edit";
-import Review from "./review";
-import Reviewing from "./reviewing";
-import Answer from "./answer";
 
 const SEARCH = "/search";
 const ERROR = "/error";
@@ -38,22 +23,22 @@ const REVIEW = "/profile/transaction/review";
 const ANSWER = "/answer";
 
 const pages = {
-  [ROOT]: Carousel,
-  [SEARCH]: Search,
-  [ERROR]: Err,
-  [LOGIN]: Login,
-  [REGISTER]: Register,
-  [CART]: ShoppingCart,
-  [CONNECT]: Connect,
-  [SELL]: Sell,
-  [PROFILE]: Profile,
-  [CHECKOUT]: ShoppingCart,
-  [TRANSACTION]: Transaction,
-  [PRODUCT]: Product,
-  [EDIT]: Edit,
-  [REVIEWING]: Reviewing,
-  [REVIEW]: Review,
-  [ANSWER]: Answer
+  [ROOT]: React.lazy(() => import("./carousel")),
+  [SEARCH]: React.lazy(() => import("./search")),
+  [ERROR]: React.lazy(() => import("./error")),
+  [LOGIN]: React.lazy(() => import("./login")),
+  [REGISTER]: React.lazy(() => import("./register")),
+  [CART]: React.lazy(() => import("./shoppingcart")),
+  [CONNECT]: React.lazy(() => import("./connect")),
+  [SELL]: React.lazy(() => import("./sell")),
+  [PROFILE]: React.lazy(() => import("./profile")),
+  [CHECKOUT]: React.lazy(() => import("./shoppingcart")),
+  [TRANSACTION]: React.lazy(() => import("./transaction")),
+  [PRODUCT]: React.lazy(() => import("./product")),
+  [EDIT]: React.lazy(() => import("./edit")),
+  [REVIEWING]: React.lazy(() => import("./reviewing")),
+  [REVIEW]: React.lazy(() => import("./review")),
+  [ANSWER]: React.lazy(() => import("./answer"))
 };
 
 const Home = React.memo(() => {
@@ -198,17 +183,19 @@ const Home = React.memo(() => {
   const Component = pages[showRoute];
   return (
     <ErrorBoundary>
-      <NavBar
-        showSearch={showSearch}
-        showError={showError}
-        logout={logout}
-        loggedIn={isLoggedIn}
-        connected={isConnected}
-        counter={cart.length}
-      />
-      <main className="container-fluid mt-5 pt-3" id="container">
-        <Component {...pageProps[showRoute]} />
-      </main>
+      <Suspense fallback={<div>Loading...</div>}>
+        <NavBar
+          showSearch={showSearch}
+          showError={showError}
+          logout={logout}
+          loggedIn={isLoggedIn}
+          connected={isConnected}
+          counter={cart.length}
+        />
+        <main className="container-fluid mt-5 pt-3" id="container">
+          <Component {...pageProps[showRoute]} />
+        </main>
+      </Suspense>
     </ErrorBoundary>
   );
 });
